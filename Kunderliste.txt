@@ -1,0 +1,12 @@
+kunderNr: 1
+Navn: luhg
+FakturaAdresse: hjhjgkjhjkbjk
+Mon Sep 02 22:45:01 CEST 2024
+Du er registeret for forsikiring: 
+
+kunderNr: 6
+Navn: fdfdf
+FakturaAdresse: fgdgfd
+Mon Sep 02 22:45:01 CEST 2024
+Du er registeret for forsikiring: 
+
