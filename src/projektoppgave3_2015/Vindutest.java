@@ -649,12 +649,12 @@ public final class Vindutest extends JFrame {
         //utskrift.setText(lister.toString());
     }//end av SkrivUtListe
 
-    /*
-     public void skrivbilFil() throws FileNotFoundException{
-        
-     lister.skrivbilfil(lister.visbiltostring());
-     }
-     */
+
+    public void skrivbilFil() throws FileNotFoundException {
+
+        lister.skrivbilfil(lister.visbiltostring());
+    }
+
 
     /**
      * av lunga majola
@@ -662,12 +662,13 @@ public final class Vindutest extends JFrame {
      * @throws IOException
      */
     private void lessFil() throws IOException {
+        String filePath = "src/lister.txt";
         //leser og viser fila
-        try (ObjectInputStream innfil = new ObjectInputStream(new FileInputStream("src/lister.txt"))) {
+        try (ObjectInputStream innfil = new ObjectInputStream(new FileInputStream(filePath))) {
             lister = (Lister) innfil.readObject();
         } catch (ClassNotFoundException cnfe) {
             // melding og vise fil
-            utskrift.setText(cnfe.getMessage());
+            utskrift.setText("ClassNotFoundException: " + cnfe.getMessage());
             utskrift.append("\nTomt lister:\n");
             lister = new Lister();
             //medling hvis noe er galt
@@ -686,7 +687,8 @@ public final class Vindutest extends JFrame {
      */
     public void skrivTilFil() {
 
-        try (ObjectOutputStream utfil = new ObjectOutputStream(new FileOutputStream("src/lister.txt"))) {
+        String filePath = "src/lister.txt";
+        try (ObjectOutputStream utfil = new ObjectOutputStream(new FileOutputStream(filePath))) {
 
             utfil.writeObject(lister);
         } catch (NotSerializableException nse) {
@@ -989,15 +991,15 @@ public final class Vindutest extends JFrame {
                     melding("fritidsBolig er nå forsikret. kundeNr: " + knr);
                     utskrift.setText(lister.viskunde() + " er nå forsikret " + "\n" + lister.visFritidsbo());
                     slettFelter();//slett av felter
-                }else {
+                } else {
                     melding("Feil: kunne ikke legge til FritidsBoligForsikring. ");
                 }
-                }else {
+            } else {
                 melding("Ingen kunde funnet med kunderNr: " + knr);
             }
         } catch (NumberFormatException e) {
             melding("Ingen registrering pga. feil i tallformat");
-        }catch (Exception e) {
+        } catch (Exception e) {
             melding("En uventet feil oppstod: " + e.getMessage());
         }
 

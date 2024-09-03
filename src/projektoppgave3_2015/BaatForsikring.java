@@ -12,6 +12,7 @@ package projektoppgave3_2015;
  * @author suraj Tamrakar s929577
  * @author lunga majola s929610
  */
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -19,11 +20,9 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Formatter;
 
-public class BaatForsikring extends Forsikring implements Serializable
-{
+public class BaatForsikring extends Forsikring implements Serializable {
 
-    public enum BåtType
-    {
+    public enum BåtType {
 
         PERSON_BÅT,
         STOR_BÅT,
@@ -43,8 +42,7 @@ public class BaatForsikring extends Forsikring implements Serializable
     private int kunder = 0;
 
     public BaatForsikring(Calendar dato, String regnr1, String baattype, String modell,
-            int lengde, int årsmodell, String motortype, int motorstyrk, double boun, int ForsikiringID, double b)
-    {
+                          int lengde, int årsmodell, String motortype, int motorstyrk, double boun, int ForsikiringID, double b) {
         super(ForsikiringID);
         this.dato = dato;
 
@@ -64,198 +62,157 @@ public class BaatForsikring extends Forsikring implements Serializable
      *
      * @return
      */
-    public String getRegistrergsnummer()
-    {
+    public String getRegistrergsnummer() {
         return registrergsnummer;
     }
 
     /**
-     *
      * @param dato
      */
-    public void setDato(Calendar dato)
-    {
+    public void setDato(Calendar dato) {
         this.dato = dato;
     }
 
     /**
-     *
      * @return kunder
      */
-    public String getKundeNr()
-    {
+    public String getKundeNr() {
         return Kunder;
     }
 
     /**
-     *
      * @param kundeNr
      */
-    public void setKunder(int kundeNr)
-    {
+    public void setKunder(int kundeNr) {
         this.kunder = kundeNr++;
     }
 
     /**
-     *
      * @return baattype
      */
-    public String getBaattype()
-    {
+    public String getBaattype() {
         return baattype;
     }
 
     /**
-     *
      * @param baattype
      */
-    public void setBaattype(String baattype)
-    {
+    public void setBaattype(String baattype) {
         this.baattype = baattype;
     }
 
     /**
-     *
      * @return modell
      */
-    public String getModell()
-    {
+    public String getModell() {
         return modell;
     }
 
     /**
-     *
      * @param modell
      */
-    public void setModell(String modell)
-    {
+    public void setModell(String modell) {
         this.modell = modell;
     }
 
     /**
-     *
      * @return lengde
      */
-    public int getLengde()
-    {
+    public int getLengde() {
         return lengde;
     }
 
     /**
-     *
      * @param lengde
      */
-    public void setLengde(int lengde)
-    {
+    public void setLengde(int lengde) {
         this.lengde = lengde;
     }
 
     /**
-     *
      * @return årsmodell
      */
-    public int getÅrsmodell()
-    {
+    public int getÅrsmodell() {
         return årsmodell;
     }
 
     /**
-     *
      * @param årsmodell
      */
-    public void setÅrsmodell(int årsmodell)
-    {
+    public void setÅrsmodell(int årsmodell) {
         this.årsmodell = årsmodell;
     }
 
     /**
-     *
      * @return motorstyrkk
      */
-    public int getMotorstyrk()
-    {
+    public int getMotorstyrk() {
         return motorstyrk;
     }
 
     /**
-     *
      * @param motorstyrk
      */
-    public void setMotorstyrk(int motorstyrk)
-    {
+    public void setMotorstyrk(int motorstyrk) {
         this.motorstyrk = motorstyrk;
     }
 
     /**
-     *
      * @return bonus
      */
-    public double getBonus()
-    {
+    public double getBonus() {
         return bonus;
     }
 
     /**
-     *
      * @param bonus
      */
-    public void setBonus(double bonus)
-    {
+    public void setBonus(double bonus) {
         this.bonus = bonus;
     }
 
     /**
-     *
      * @param nydato
      */
-    public void setCalendar(Calendar nydato)
-    {
+    public void setCalendar(Calendar nydato) {
         dato = nydato;
     }
 
     /**
-     *
      * @return premie etter regning
      */
-    public double premie()
-    {
+    public double premie() {
 
         return (motorstyrk * lengde) * (1 - bonus / 100);
 
     }
 
     /**
-     *
      * @return Dato
      */
-    public String getDato()
-    {
+    public String getDato() {
         //Returnere en string som forsikringtiden  forsikring ble skrevet ut
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         return df.format(dato.getTime());
     }
 
     /**
-     *
      * @return ForsikiringType
      */
-    public int getForsikringsType()
-    {
+    public int getForsikringsType() {
         return 4;
     }
 
     /**
-     *
      * @return linjen
      */
-    public Object[] getTabelllinje()
-    {
+    public Object[] getTabelllinje() {
 
         Object[] linjen =
-        {
-            getDato(), baattype, registrergsnummer, modell, lengde,
-            motorstyrk, motortype, bonus
-        };
+                {
+                        getDato(), baattype, registrergsnummer, modell, lengde,
+                        motorstyrk, motortype, bonus
+                };
 
         return linjen;
 
@@ -266,15 +223,13 @@ public class BaatForsikring extends Forsikring implements Serializable
      *
      * @return
      */
-    public String toString()
-    {
+    public String toString() {
 
         NumberFormat kroneFormat = NumberFormat.getCurrencyInstance();
         //DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 
         Formatter fmt = new Formatter();
         Calendar cal = Calendar.getInstance();
-        fmt = new Formatter();
         fmt.format("%tc", cal);
 
         return "BaatForsikring" + "Eier" + this.Kunder
@@ -297,8 +252,7 @@ public class BaatForsikring extends Forsikring implements Serializable
      *
      * @return
      */
-    public int age()
-    {
+    public int age() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
