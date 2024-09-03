@@ -36,7 +36,7 @@ public class Kunde implements Serializable {
     private final HashSet<BilForsikring> bilListe;
     private final HashSet<BaatForsikring> boatListe;
     private final HashSet<Husoginnboforsikring> husListe;
-    private final HashSet<FritidsboligForsikiring> fitidhusListe;
+    private final HashSet<FritidsboligForsikiring> fritidhusListe;
     private final HashSet<Reise> rieseListe;
     // private int nesterNr;
 
@@ -49,7 +49,7 @@ public class Kunde implements Serializable {
         bilListe = new HashSet<>();
         boatListe = new HashSet<>();
         husListe = new HashSet<>();
-        fitidhusListe = new HashSet<>();
+        fritidhusListe = new HashSet<>();
         rieseListe = new HashSet<>();
 
     }
@@ -268,7 +268,7 @@ public class Kunde implements Serializable {
      * @return
      */
     public boolean addFritidshusForsikring(FritidsboligForsikiring f) {
-        return fitidhusListe.add(f);
+        return fritidhusListe.add(f);
     }//end of addFritidshus
 
     /**
@@ -277,6 +277,9 @@ public class Kunde implements Serializable {
      */
     public String addReise(Reise r) {
 
+        if (r == null) {
+            return "Error Object is empty";
+        }
         boolean ok = rieseListe.add(r);
 
         if (ok) {
@@ -294,7 +297,7 @@ public class Kunde implements Serializable {
     public String addBaat(BaatForsikring ba) {
 
         if (ba == null) {
-            return "Error: The boat insurace object is empty";
+            return "Error: The boat insurance object is empty";
         }
         boolean okAdded = boatListe.add(ba); //sjekker hvis en hus er registerert
         if (okAdded) {
@@ -307,12 +310,12 @@ public class Kunde implements Serializable {
     }//end of addBaat
 
     /**
-     * @param adresse1
-     * @return
+     * @param adresse1 the address to search for
+     * @return the address if found, otherwise null
      */
     public String finnfritidsHus(String adresse1) {
         Logger logger = Logger.getLogger("FritidsHusLogger");
-        Iterator<FritidsboligForsikiring> iterator = fitidhusListe.iterator();// løper gjenomm liste
+        Iterator<FritidsboligForsikiring> iterator = fritidhusListe.iterator();// løper gjenomm liste
         while (iterator.hasNext()) {// Check if there is a next element
             FritidsboligForsikiring fh = iterator.next();//if yes then get the next element
             if (fh.getBoligensAdresse() == null ? adresse1 == null : fh.getBoligensAdresse().equals(adresse1)) {
@@ -320,13 +323,10 @@ public class Kunde implements Serializable {
                 return adresse1;
             }
         }
-        try {
-            logger.info("fritidsHus not found: " + adresse1);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+
+        logger.info("fritidsHus not found: " + adresse1);
         return null;
-    }//end of finnfritiHus
+    }//end of finnfritidsHus
 
     /**
      * setter tid i sanntid
