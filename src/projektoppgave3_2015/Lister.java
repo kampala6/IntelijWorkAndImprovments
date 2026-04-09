@@ -332,13 +332,6 @@ public class Lister implements Serializable {
      * @param h
      */
 
-    public void leggTilHusoginnboForsikiring(Husoginnboforsikring h) {
-
-        husoginnboforsikringsListe.add(h);
-        for (Husoginnboforsikring next : husoginnboforsikringsListe) {
-        }
-
-    }//end 
 
     /**
      * @param r
