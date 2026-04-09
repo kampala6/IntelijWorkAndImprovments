@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projektoppgave3_2015;
 
 import java.io.Serializable;
 
-/**
- *
- * @author lungamajola
- */
-public class Adresse implements Serializable
-{
+public class Adresse implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String gateAdresse;
     private String gateNummer;
@@ -20,11 +12,7 @@ public class Adresse implements Serializable
     private String by;
     private String land;
 
-    public Adresse(String gateAdresse, String gateNummer, int postNummer,
-            String by, String land)
-    {
-        super();
-
+    public Adresse(String gateAdresse, String gateNummer, int postNummer, String by, String land) {
         this.gateAdresse = gateAdresse;
         this.gateNummer = gateNummer;
         this.postNummer = postNummer;
@@ -32,83 +20,48 @@ public class Adresse implements Serializable
         this.land = land;
     }
 
-    /**
-     * @return the gateAdresse
-     */
-    public String getGateAdresse()
-    {
+    public String getGateAdresse() {
         return gateAdresse;
     }
 
-    /**
-     * @param gateAdresse the gateAdresse to set
-     */
-    public void setGateAdresse(String gateAdresse)
-    {
+    public void setGateAdresse(String gateAdresse) {
         this.gateAdresse = gateAdresse;
     }
 
-    /**
-     * @return the gateNummer
-     */
-    public String getGateNummer()
-    {
+    public String getGateNummer() {
         return gateNummer;
     }
 
-    /**
-     * @param gateNummer the gateNummer to set
-     */
-    public void setGateNummer(String gateNummer)
-    {
+    public void setGateNummer(String gateNummer) {
         this.gateNummer = gateNummer;
     }
 
-    /**
-     * @return the postNummer
-     */
-    public int getPostNummer()
-    {
+    public int getPostNummer() {
         return postNummer;
     }
 
-    /**
-     * @param postNummer the postNummer to set
-     */
-    public void setPostNummer(int postNummer)
-    {
+    public void setPostNummer(int postNummer) {
         this.postNummer = postNummer;
     }
 
-    /**
-     * @return the by
-     */
-    public String getBy()
-    {
+    public String getBy() {
         return by;
     }
 
-    /**
-     * @param by the by to set
-     */
-    public void setBy(String by)
-    {
+    public void setBy(String by) {
         this.by = by;
     }
 
-    /**
-     * @return the land
-     */
-    public String getLand()
-    {
+    public String getLand() {
         return land;
     }
 
-    /**
-     * @param land the land to set
-     */
-    public void setLand(String land)
-    {
+    public void setLand(String land) {
         this.land = land;
+    }
+
+    @Override
+    public String toString() {
+        return gateAdresse + " " + gateNummer + ", " + postNummer + " " + by + ", " + land;
     }
 }

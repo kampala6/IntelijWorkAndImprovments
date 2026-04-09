@@ -1,287 +1,161 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projektoppgave3_2015;
 
-/**
- *
- * @author Mojola
- */
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Calendar;
-import java.util.Formatter;
 
-/**
- * @author suraj Tamrakar
- * @author lungamajola
- */
-public class FritidsboligForsikiring extends Forsikring
-{
+public class FritidsboligForsikiring extends Forsikring implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String boligensAdresse;
     private int byggeaar = -1;
     private String boligtype;
     private String byggemateriale;
     private String standard;
-    private int ANTALL_KVADRATMETER = -1;//kan brukes hvis du vill viser are det ikke er string type
+    private int antallKvadratmeter = -1;
     private int belopB = -1;
     private int belopI = -1;
-    private double bonus = 0;
+    private double bonus = 0.0;
     private Calendar dato;
 
-    public FritidsboligForsikiring(int ForsikiringID)
-    {
-        super(ForsikiringID);
-
-    }
-
-    public FritidsboligForsikiring(String boligensAdresse, Calendar dato, String boligtype, String byggemateriale, String standard,
-            int belopI, int belopB, int byggeaar, int Antallk, double boun, int ForsikiringID)
-    {
-        super(ForsikiringID);
+    public FritidsboligForsikiring(String boligensAdresse,
+                                   Calendar dato,
+                                   String boligtype,
+                                   String byggemateriale,
+                                   String standard,
+                                   int belopI,
+                                   int belopB,
+                                   int byggeaar,
+                                   int antallKvadratmeter,
+                                   double bonus,
+                                   int forsikringId) {
+        super(forsikringId);
         this.boligensAdresse = boligensAdresse;
-        this.boligtype = boligtype;
-        this.byggemateriale = byggemateriale;
-        this.standard = standard;
-        this.bonus = boun;
-        this.ANTALL_KVADRATMETER = Antallk;
-        this.byggeaar = byggeaar;
-        this.belopB = belopB;
-        this.belopI = belopI;
         this.dato = dato;
-
-    }
-
-    /**
-     *
-     * @return boligensAdresse.
-     */
-    public String getBoligensAdresse()
-    {
-        return boligensAdresse;
-    }
-
-    /**
-     *
-     * @param boligensAdresse
-     */
-    public void setBoligensAdresse(String boligensAdresse)
-    {
-        this.boligensAdresse = boligensAdresse;
-    }
-
-    /**
-     *
-     * @return byggeaar
-     */
-    public int getByggeaar()
-    {
-        return byggeaar;
-    }
-
-    /**
-     *
-     * @param byggeaar
-     */
-    public void setByggeaar(int byggeaar)
-    {
-        this.byggeaar = byggeaar;
-    }
-
-    /**
-     *
-     * @return boligtype.
-     */
-    public String getBoligtype()
-    {
-        return boligtype;
-    }
-
-    /**
-     *
-     * @param boligtype
-     */
-    public void setBoligtype(String boligtype)
-    {
         this.boligtype = boligtype;
-    }
-
-    /**
-     *
-     * @return byggemateriale
-     */
-    public String getByggemateriale()
-    {
-        return byggemateriale;
-    }
-
-    /**
-     *
-     * @param byggemateriale
-     */
-    public void setByggemateriale(String byggemateriale)
-    {
         this.byggemateriale = byggemateriale;
-    }
-
-    /**
-     *
-     * @return standard
-     */
-    public String getStandard()
-    {
-        return standard;
-    }
-
-    /**
-     *
-     * @param standard
-     */
-    public void setStandard(String standard)
-    {
         this.standard = standard;
-    }
-
-    /**
-     *
-     * @return belopB.
-     */
-    public int getBelopB()
-    {
-        return belopB;
-    }
-
-    /**
-     *
-     * @param belopB
-     */
-    public void setBelopB(int belopB)
-    {
-        this.belopB = belopB;
-    }
-
-    /**
-     *
-     * @return belopI
-     */
-    public int getBelopI()
-    {
-        return belopI;
-    }
-
-    /**
-     *
-     * @param belopI
-     */
-    public void setBelopI(int belopI)
-    {
         this.belopI = belopI;
-    }
-
-    /**
-     *
-     * @return bonus
-     */
-    public double getBonus()
-    {
-        return bonus;
-    }
-
-    /**
-     *
-     * @param bonus
-     */
-    public void setBonus(double bonus)
-    {
+        this.belopB = belopB;
+        this.byggeaar = byggeaar;
+        this.antallKvadratmeter = antallKvadratmeter;
         this.bonus = bonus;
     }
 
-    /**
-     *
-     * @return dato
-     */
-    public Calendar getDato()
-    {
+    public String getBoligensAdresse() {
+        return boligensAdresse;
+    }
+
+    public void setBoligensAdresse(String boligensAdresse) {
+        this.boligensAdresse = boligensAdresse;
+    }
+
+    public int getByggeaar() {
+        return byggeaar;
+    }
+
+    public void setByggeaar(int byggeaar) {
+        this.byggeaar = byggeaar;
+    }
+
+    public String getBoligtype() {
+        return boligtype;
+    }
+
+    public void setBoligtype(String boligtype) {
+        this.boligtype = boligtype;
+    }
+
+    public String getByggemateriale() {
+        return byggemateriale;
+    }
+
+    public void setByggemateriale(String byggemateriale) {
+        this.byggemateriale = byggemateriale;
+    }
+
+    public String getStandard() {
+        return standard;
+    }
+
+    public void setStandard(String standard) {
+        this.standard = standard;
+    }
+
+    public int getAntallKvadratmeter() {
+        return antallKvadratmeter;
+    }
+
+    public void setAntallKvadratmeter(int antallKvadratmeter) {
+        this.antallKvadratmeter = antallKvadratmeter;
+    }
+
+    public int getBelopB() {
+        return belopB;
+    }
+
+    public void setBelopB(int belopB) {
+        this.belopB = belopB;
+    }
+
+    public int getBelopI() {
+        return belopI;
+    }
+
+    public void setBelopI(int belopI) {
+        this.belopI = belopI;
+    }
+
+    public double getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(double bonus) {
+        this.bonus = bonus;
+    }
+
+    public Calendar getDatoObjekt() {
         return dato;
     }
 
-    /**
-     *
-     * @param dato
-     */
-    public void setDato(Calendar dato)
-    {
+    public void setDato(Calendar dato) {
         this.dato = dato;
     }
 
-    /**
-     *
-     * @return super.getForsikiringsID
-     */
-    public int getForsikiringID()
-    {
-        return super.getForsikiringID();
-    }
-
-    /**
-     *
-     * @param ForsikiringID
-     */
-    public void setForsikiringID(int ForsikiringID)
-    {
-        super.setForsikiringID(ForsikiringID);
+    @Override
+    public double premie() {
+        return (belopB * belopI) * (1 - bonus / 100.0);
     }
 
     @Override
-    public double premie()
-    {
-
-        return (belopB * belopI) * (1 - bonus / 100);
+    public int getForsikringsType() {
+        return FRITIDSBO;
     }
 
     @Override
-    // vi har jobbet med den string metode sammen
-    public String toString()
-    {
-
-        Formatter fmt = new Formatter();
-        Calendar cal = Calendar.getInstance();
-        fmt = new Formatter();
-        fmt.format("%tc", cal);
-
-        NumberFormat KroneFormat = NumberFormat.getCurrencyInstance();
-        return "FritidsboligForsikiring"
-                + "\nboligensAdresse:" + this.boligensAdresse
-                + "\nbyggeaar:" + this.byggeaar
-                + "\nboligtype:" + this.boligtype
-                + "\nbyggemateriale: " + this.byggemateriale
-                + "\nstandard" + this.standard
-                + "\nbelopB" + this.belopB + "NOR"
-                + "\nbelopI" + this.belopI + "NOR"
-                + "\n" + this.ANTALL_KVADRATMETER + "KVM"
-                + "\nbonus " + (int) bonus + "%"
-                + "\ndato" + this.dato
-                + "\nårspremie" + KroneFormat.format(premie())
-                + "\n" + fmt;
+    public int age() {
+        if (dato == null) {
+            return 0;
+        }
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        return Math.max(0, year - byggeaar);
     }
 
     @Override
-    public int age()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public String toString() {
+        NumberFormat kr = NumberFormat.getCurrencyInstance();
+        return "FritidsboligForsikiring{" +
+                "boligensAdresse='" + boligensAdresse + '\'' +
+                ", byggeaar=" + byggeaar +
+                ", boligtype='" + boligtype + '\'' +
+                ", byggemateriale='" + byggemateriale + '\'' +
+                ", standard='" + standard + '\'' +
+                ", antallKvadratmeter=" + antallKvadratmeter +
+                ", belopB=" + belopB +
+                ", belopI=" + belopI +
+                ", bonus=" + bonus +
+                ", premie=" + kr.format(premie()) +
+                '}';
     }
-
-    @Override
-    public int getForsikringsType()
-    {
-        return HUS_INNBO;
-    }
-
 }

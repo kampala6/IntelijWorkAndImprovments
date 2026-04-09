@@ -57,11 +57,11 @@ public class RuntimeInsurance
 
                 });
 
-         vindu.skrivFil();
+         vindu.setVisible(true);
         vindu.skrivTilFil();
         vindu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        // System.exit(0);
-        vindu.skrivFil();
+        vindu.setVisible(true);
          vindu.skrivTilFil();
         //vindu.skrivbilFil();
     }

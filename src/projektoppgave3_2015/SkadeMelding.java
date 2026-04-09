@@ -1,31 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projektoppgave3_2015;
 
-/**
- *
- * @author lungamajola
- */
-/**
- *
- * @author lungamajola
- */
-//package projectOppgave.models;
 import java.io.Serializable;
 import java.util.Date;
 
-public class SkadeMelding implements Serializable
-{
+public class SkadeMelding implements Serializable {
 
-    public enum TypeSkade
-    {
+    private static final long serialVersionUID = 1L;
 
-        VANN_SKEDE,
-        BRANN_SKADE,
-        //etc...
+    public enum TypeSkade {
+        VANN_SKADE,
+        BRANN_SKADE
     }
 
     private Date dato;
@@ -36,142 +20,77 @@ public class SkadeMelding implements Serializable
     private double takseringBeløp;
     private double utbetaltErstatningsBeløp;
 
-    /**
-     *
-     * @return dato
-     */
-    public Date getDato()
-    {
+    public SkadeMelding(Date dato, TypeSkade typeSkade) {
+        this.dato = dato;
+        this.typeSkade = typeSkade;
+    }
+
+    public Date getDato() {
         return dato;
     }
 
-    /**
-     *
-     * @param dato
-     */
-    public void setDato(Date dato)
-    {
+    public void setDato(Date dato) {
         this.dato = dato;
     }
 
-    /**
-     *
-     * @return skadeNummer
-     */
-    public int getSkadeNummer()
-    {
+    public int getSkadeNummer() {
         return skadeNummer;
     }
 
-    /**
-     *
-     * @param skadeNummer
-     */
-    public void setSkadeNummer(int skadeNummer)
-    {
+    public void setSkadeNummer(int skadeNummer) {
         this.skadeNummer = skadeNummer;
     }
 
-    /**
-     *
-     * @return
-     */
-    public TypeSkade getTypeSkade()
-    {
+    public TypeSkade getTypeSkade() {
         return typeSkade;
     }
 
-    /**
-     *
-     * @param typeSkade
-     */
-    public void setTypeSkade(TypeSkade typeSkade)
-    {
+    public void setTypeSkade(TypeSkade typeSkade) {
         this.typeSkade = typeSkade;
     }
 
-    /**
-     *
-     * @return
-     */
-    public String getBeskrivelse()
-    {
+    public String getBeskrivelse() {
         return beskrivelse;
     }
 
-    /**
-     *
-     * @param beskrivelse
-     */
-    public void setBeskrivelse(String beskrivelse)
-    {
+    public void setBeskrivelse(String beskrivelse) {
         this.beskrivelse = beskrivelse;
     }
 
-    /**
-     *
-     * @return
-     */
-    public String getVitnerKontaktInfo()
-    {
+    public String getVitnerKontaktInfo() {
         return vitnerKontaktInfo;
     }
 
-    /**
-     *
-     * @param vitnerKontaktInfo
-     */
-    public void setVitnerKontaktInfo(String vitnerKontaktInfo)
-    {
+    public void setVitnerKontaktInfo(String vitnerKontaktInfo) {
         this.vitnerKontaktInfo = vitnerKontaktInfo;
     }
 
-    /**
-     *
-     * @return
-     */
-    public double getTakseringBeløp()
-    {
+    public double getTakseringBeløp() {
         return takseringBeløp;
     }
 
-    /**
-     *
-     * @param takseringBeløp
-     */
-    public void setTakseringBeløp(double takseringBeløp)
-    {
+    public void setTakseringBeløp(double takseringBeløp) {
         this.takseringBeløp = takseringBeløp;
     }
 
-    /**
-     *
-     * @return
-     */
-    public double getUtbetaltErstatningsBeløp()
-    {
+    public double getUtbetaltErstatningsBeløp() {
         return utbetaltErstatningsBeløp;
     }
 
-    /**
-     *
-     * @param utbetaltErstatningsBeløp
-     */
-    public void setUtbetaltErstatningsBeløp(double utbetaltErstatningsBeløp)
-    {
+    public void setUtbetaltErstatningsBeløp(double utbetaltErstatningsBeløp) {
         this.utbetaltErstatningsBeløp = utbetaltErstatningsBeløp;
     }
 
-    /**
-     *
-     * @param dato
-     * @param typeSkade
-     */
-
-    public SkadeMelding(Date dato, TypeSkade typeSkade)
-    {
-        super();
-        this.dato = dato;
-        this.typeSkade = typeSkade;
+    @Override
+    public String toString() {
+        return "SkadeMelding{" +
+                "dato=" + dato +
+                ", skadeNummer=" + skadeNummer +
+                ", typeSkade=" + typeSkade +
+                ", beskrivelse='" + beskrivelse + '\'' +
+                ", vitnerKontaktInfo='" + vitnerKontaktInfo + '\'' +
+                ", takseringBeløp=" + takseringBeløp +
+                ", utbetaltErstatningsBeløp=" + utbetaltErstatningsBeløp +
+                '}';
     }
 }
