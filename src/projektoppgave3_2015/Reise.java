@@ -1,8 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
 package projektoppgave3_2015;
 
 import java.io.Serializable;
@@ -12,98 +12,64 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Formatter;
 
-/**
- * Gruppe 57
- *
- * @author Arash Amini s156127
- * @author Suraj Tamrakar s929610
- * @author Lunga Majola
- */
 public class Reise extends Forsikring implements Serializable {
-
     public String kunder;
     private String område;
     private int sumf;
     private final Calendar dato;
-    private double bouns = 0;
+    private double bouns = (double)0.0F;
 
-    public Reise(String kunder, String område, int sumf, int ForsikiringID, double bonus) {
-        super(ForsikiringID);
-        this.kunder = kunder;
-        this.område = område;
-        this.sumf = sumf;
+    public Reise(String var1, String var2, int var3, int var4, double var5) {
+        super(var4);
+        this.kunder = var1;
+        this.område = var2;
+        this.sumf = var3;
         this.dato = Calendar.getInstance();
-        this.bouns = bonus;
+        this.bouns = var5;
     }
 
-    /**
-     * @return
-     */
     public String getOmråde() {
-        return område;
+        return this.område;
     }
 
-    public void setOmråde(String område) {
-        this.område = område;
+    public void setOmråde(String var1) {
+        this.område = var1;
     }
 
     public int getSumf() {
-        return sumf;
+        return this.sumf;
     }
 
     public String getDato() {
-        //Returnere en string som forsikringtiden  forsikring ble skrevet ut
-        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        return df.format(dato.getTime());
+        SimpleDateFormat var1 = new SimpleDateFormat("dd.MM.yyyy");
+        return ((DateFormat)var1).format(this.dato.getTime());
     }
 
-    public void setSumf(int sumf) {
-        this.sumf = sumf;
+    public void setSumf(int var1) {
+        this.sumf = var1;
     }
 
-    public int getForsikiringID() {
-        return super.getForsikiringID();
-    }
-
-    public void setForsikiringID(int ForsikiringID) {
-        super.setForsikiringID(ForsikiringID);
-    }
-
-    @Override
     public double premie() {
-
-        double sum = sumf;
-
-        double boun = (sumf / 100) * bouns;
-        return sum + boun;
-
+        double var1 = (double)this.sumf;
+        double var3 = (double)(this.sumf / 100) * this.bouns;
+        return var1 + var3;
     }
 
-    @Override
     public String toString() {
-        NumberFormat kroneFormat = NumberFormat.getCurrencyInstance();
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-
-        Formatter fmt = new Formatter();
-        Calendar cal = Calendar.getInstance();
-        fmt.format("%tc", cal);
-
-        return "Reise{" + "omr\u00e5de=" + område + ", sumf=" + sumf
-                + ", premie=" + kroneFormat.format(premie())
-                + ", dato="  + df.format(dato.getTime())
-                + ", formattedDate="  + fmt + '}';
+        NumberFormat var1 = NumberFormat.getCurrencyInstance();
+        SimpleDateFormat var2 = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+        Formatter var3 = new Formatter();
+        Calendar var4 = Calendar.getInstance();
+        var3.format("%tc", var4);
+        String var10000 = this.område;
+        return "Reise{område=" + var10000 + ", sumf=" + this.sumf + ", premie=" + var1.format(this.premie()) + ", dato=" + ((DateFormat)var2).format(this.dato.getTime()) + ", formattedDate=" + String.valueOf(var3) + "}";
     }
 
-    @Override
     public int age() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
     public int getForsikringsType() {
-
-        return REISE;
+        return 3;
     }
-
 }

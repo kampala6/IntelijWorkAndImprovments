@@ -1,3 +1,8 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
 package projektoppgave3_2015;
 
 import java.io.Serializable;
@@ -5,15 +10,7 @@ import java.text.NumberFormat;
 import java.util.Calendar;
 
 public class BaatForsikring extends Forsikring implements Serializable {
-
     private static final long serialVersionUID = 1L;
-
-    public enum BåtType {
-        PERSON_BÅT,
-        STOR_BÅT,
-        CRUISE_BÅT
-    }
-
     private Calendar dato;
     private int kunder;
     private String registreringsnummer;
@@ -23,144 +20,130 @@ public class BaatForsikring extends Forsikring implements Serializable {
     private int årsmodell;
     private String motortype;
     private int motorstyrke;
-    private double bonus = 0.0;
+    private double bonus = (double)0.0F;
 
-    public BaatForsikring(Calendar dato,
-                          String registreringsnummer,
-                          String baattype,
-                          String modell,
-                          int lengde,
-                          int årsmodell,
-                          String motortype,
-                          int motorstyrke,
-                          double bonus,
-                          int forsikringId,
-                          double ignored) {
-        super(forsikringId);
-        this.dato = dato;
-        this.registreringsnummer = registreringsnummer;
-        this.baattype = baattype;
-        this.modell = modell;
-        this.lengde = lengde;
-        this.årsmodell = årsmodell;
-        this.motortype = motortype;
-        this.motorstyrke = motorstyrke;
-        this.bonus = bonus;
+    public BaatForsikring(Calendar var1, String var2, String var3, String var4, int var5, int var6, String var7, int var8, double var9, int var11, double var12) {
+        super(var11);
+        this.dato = var1;
+        this.registreringsnummer = var2;
+        this.baattype = var3;
+        this.modell = var4;
+        this.lengde = var5;
+        this.årsmodell = var6;
+        this.motortype = var7;
+        this.motorstyrke = var8;
+        this.bonus = var9;
     }
 
     public Calendar getDatoObjekt() {
-        return dato;
+        return this.dato;
     }
 
-    public void setDato(Calendar dato) {
-        this.dato = dato;
+    public void setDato(Calendar var1) {
+        this.dato = var1;
     }
 
     public int getKunder() {
-        return kunder;
+        return this.kunder;
     }
 
-    public void setKunder(int kunder) {
-        this.kunder = kunder;
+    public void setKunder(int var1) {
+        this.kunder = var1;
     }
 
     public String getRegistreringsnummer() {
-        return registreringsnummer;
+        return this.registreringsnummer;
     }
 
-    public void setRegistreringsnummer(String registreringsnummer) {
-        this.registreringsnummer = registreringsnummer;
+    public void setRegistreringsnummer(String var1) {
+        this.registreringsnummer = var1;
     }
 
     public String getBaattype() {
-        return baattype;
+        return this.baattype;
     }
 
-    public void setBaattype(String baattype) {
-        this.baattype = baattype;
+    public void setBaattype(String var1) {
+        this.baattype = var1;
     }
 
     public String getModell() {
-        return modell;
+        return this.modell;
     }
 
-    public void setModell(String modell) {
-        this.modell = modell;
+    public void setModell(String var1) {
+        this.modell = var1;
     }
 
     public int getLengde() {
-        return lengde;
+        return this.lengde;
     }
 
-    public void setLengde(int lengde) {
-        this.lengde = lengde;
+    public void setLengde(int var1) {
+        this.lengde = var1;
     }
 
     public int getÅrsmodell() {
-        return årsmodell;
+        return this.årsmodell;
     }
 
-    public void setÅrsmodell(int årsmodell) {
-        this.årsmodell = årsmodell;
+    public void setÅrsmodell(int var1) {
+        this.årsmodell = var1;
     }
 
     public String getMotortype() {
-        return motortype;
+        return this.motortype;
     }
 
-    public void setMotortype(String motortype) {
-        this.motortype = motortype;
+    public void setMotortype(String var1) {
+        this.motortype = var1;
     }
 
     public int getMotorstyrke() {
-        return motorstyrke;
+        return this.motorstyrke;
     }
 
-    public void setMotorstyrke(int motorstyrke) {
-        this.motorstyrke = motorstyrke;
+    public void setMotorstyrke(int var1) {
+        this.motorstyrke = var1;
     }
 
     public double getBonus() {
-        return bonus;
+        return this.bonus;
     }
 
-    public void setBonus(double bonus) {
-        this.bonus = bonus;
+    public void setBonus(double var1) {
+        this.bonus = var1;
     }
 
-    @Override
     public double premie() {
-        return (motorstyrke * lengde) * (1 - bonus / 100.0);
+        return (double)(this.motorstyrke * this.lengde) * ((double)1.0F - this.bonus / (double)100.0F);
     }
 
-    @Override
     public int getForsikringsType() {
-        return BAAT;
+        return 4;
     }
 
-    @Override
     public int age() {
-        if (dato == null) {
+        if (this.dato == null) {
             return 0;
+        } else {
+            int var1 = Calendar.getInstance().get(1);
+            return Math.max(0, var1 - this.årsmodell);
         }
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        return Math.max(0, year - årsmodell);
     }
 
-    @Override
     public String toString() {
-        NumberFormat kr = NumberFormat.getCurrencyInstance();
-        return "BaatForsikring{" +
-                "kunde=" + kunder +
-                ", registreringsnummer='" + registreringsnummer + '\'' +
-                ", baattype='" + baattype + '\'' +
-                ", modell='" + modell + '\'' +
-                ", lengde=" + lengde +
-                ", årsmodell=" + årsmodell +
-                ", motortype='" + motortype + '\'' +
-                ", motorstyrke=" + motorstyrke +
-                ", bonus=" + bonus +
-                ", premie=" + kr.format(premie()) +
-                '}';
+        NumberFormat var1 = NumberFormat.getCurrencyInstance();
+        int var10000 = this.kunder;
+        return "BaatForsikring{kunde=" + var10000 + ", registreringsnummer='" + this.registreringsnummer + "', baattype='" + this.baattype + "', modell='" + this.modell + "', lengde=" + this.lengde + ", årsmodell=" + this.årsmodell + ", motortype='" + this.motortype + "', motorstyrke=" + this.motorstyrke + ", bonus=" + this.bonus + ", premie=" + var1.format(this.premie()) + "}";
+    }
+
+    public static enum BåtType {
+        PERSON_BÅT,
+        STOR_BÅT,
+        CRUISE_BÅT;
+
+        private BåtType() {
+        }
     }
 }
