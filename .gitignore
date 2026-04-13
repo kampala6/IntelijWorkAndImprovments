@@ -1,0 +1,20 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# NetBeans local settings
+nbproject/private/
+
+# Build output
+out/
+build/
+dist/
+*.class
+
+# Local runtime/persistence files
+/lister.txt
+/lister.ser
+
+# macOS
+.DS_Store
+

@@ -13,9 +13,17 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
 public class RuntimeInsurance {
+    /**
+     * Creates the runtime launcher.
+     */
     public RuntimeInsurance() {
     }
 
+    /**
+     * Starts the insurance application and configures the Nimbus look and feel when available.
+     *
+     * @param var0 command-line arguments
+     */
     public static void main(String[] var0) {
         try {
             for(UIManager.LookAndFeelInfo var4 : UIManager.getInstalledLookAndFeels()) {
@@ -31,6 +39,11 @@ public class RuntimeInsurance {
             Vindutest vindu = new Vindutest();
             vindu.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
             vindu.addWindowListener(new WindowAdapter() {
+                /**
+                 * Persists data before the application window closes.
+                 *
+                 * @param var1 window event
+                 */
                 public void windowClosing(WindowEvent var1) {
                     vindu.skrivTilFil();
                     System.exit(0);
