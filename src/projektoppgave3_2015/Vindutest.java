@@ -17,7 +17,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,6 +37,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -42,6 +47,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.text.AbstractDocument;
@@ -142,6 +148,12 @@ public final class Vindutest extends JFrame {
     private final JButton lagreBtn = new JButton("Lagre");
     private final JButton lastBtn = new JButton("Last");
     private final JButton visLagretBtn = new JButton("Vis lagrede filer");
+    private final JButton openKundeVinduBtn = new JButton("Apne kundevindu");
+    private final JButton openBilVinduBtn = new JButton("Apne bilvindu");
+    private final JButton openHusVinduBtn = new JButton("Apne hus/innbo-vindu");
+    private final JButton openReiseVinduBtn = new JButton("Apne reisevindu");
+    private final JButton openFriVinduBtn = new JButton("Apne fritidsbolig-vindu");
+    private final JButton openSkadeVinduBtn = new JButton("Apne skademelding-vindu");
     private final SnapshotFormatter snapshotFormatter = new SnapshotFormatter();
     private final PersistenceService persistenceService = new PersistenceService("lister.txt", "lister.ser");
     private static final Color APP_BACKGROUND_COLOR = new Color(245, 247, 250);
@@ -245,13 +257,9 @@ public final class Vindutest extends JFrame {
         JPanel var1 = new JPanel();
         var1.setOpaque(false);
         var1.setLayout(new BoxLayout(var1, BoxLayout.Y_AXIS));
-        var1.add(this.buildKundePanel());
+        var1.add(this.buildRegistrationHomePanel());
         var1.add(Box.createVerticalStrut(12));
-        var1.add(this.buildForsikringPanel());
-        var1.add(Box.createVerticalStrut(12));
-        var1.add(this.buildFriPanel());
-        var1.add(Box.createVerticalStrut(12));
-        var1.add(this.buildSkadePanel());
+        var1.add(this.buildQuickOverviewPanel());
         var1.add(Box.createVerticalGlue());
         JScrollPane var2 = new JScrollPane(var1);
         var2.setBorder(null);
@@ -259,6 +267,181 @@ public final class Vindutest extends JFrame {
         var2.getViewport().setOpaque(false);
         var2.getVerticalScrollBar().setUnitIncrement(16);
         return var2;
+    }
+
+    /**
+     * Builds the main registration launcher panel that opens separate windows per domain.
+     *
+     * @return launcher panel for nested registration windows
+     */
+    private JPanel buildRegistrationHomePanel() {
+        JPanel var1 = new JPanel(new BorderLayout(0, 10));
+        var1.setOpaque(true);
+        var1.setBackground(CARD_BACKGROUND_COLOR);
+        var1.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(CARD_BORDER_COLOR), "Registrering", 1, 2, SECTION_TITLE_FONT, new Color(55, 63, 78)), BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        JLabel var2 = new JLabel("Velg en kategori for a apne et eget registreringsvindu.");
+        var2.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        var2.setForeground(new Color(95, 104, 118));
+        var1.add(var2, BorderLayout.NORTH);
+        JPanel var3 = new JPanel(new GridLayout(0, 2, 10, 10));
+        var3.setOpaque(false);
+        var3.add(this.createLauncherCardButton(this.openKundeVinduBtn, "Kunde", "Registrer, finn og slett kunder", "KUNDE", new Color(61, 122, 242)));
+        var3.add(this.createLauncherCardButton(this.openBilVinduBtn, "Bil", "Registrer bilforsikring", "BIL", new Color(18, 158, 126)));
+        var3.add(this.createLauncherCardButton(this.openHusVinduBtn, "Hus/innbo", "Registrer hus- og innboforsikring", "HUS", new Color(201, 137, 33)));
+        var3.add(this.createLauncherCardButton(this.openReiseVinduBtn, "Reise", "Registrer reiseforsikring", "REISE", new Color(118, 88, 196)));
+        var3.add(this.createLauncherCardButton(this.openFriVinduBtn, "Fritidsbolig", "Registrer fritidsboligforsikring", "FRI", new Color(77, 129, 58)));
+        var3.add(this.createLauncherCardButton(this.openSkadeVinduBtn, "Skademelding", "Registrer ny skademelding", "SKADE", new Color(194, 78, 92)));
+        var1.add(var3, BorderLayout.CENTER);
+        return var1;
+    }
+
+    /**
+     * Creates one card-style launcher tile with a title, helper text, and action button.
+     *
+     * @param var1 button that opens the nested registration window
+     * @param var2 tile title
+     * @param var3 tile description text
+     * @return card panel for dashboard launcher view
+     */
+    private JPanel createLauncherCardButton(JButton var1, String var2, String var3, String var4, Color var5) {
+        Color var6 = var5 == null ? BUTTON_PRIMARY_COLOR : var5;
+        JPanel var7 = new JPanel(new BorderLayout(0, 8));
+        var7.setOpaque(true);
+        var7.putClientProperty("launcherAccentColor", var6);
+        this.applyLauncherCardState(var7, var6, false);
+        JLabel var8 = new JLabel(var2);
+        var8.setFont(new Font("SansSerif", Font.BOLD, 13));
+        var8.setForeground(new Color(42, 49, 61));
+        JLabel var9 = new JLabel(var3);
+        var9.setFont(new Font("SansSerif", Font.PLAIN, 11));
+        var9.setForeground(new Color(95, 104, 118));
+        JLabel var10 = new JLabel(var4);
+        var10.setOpaque(true);
+        var10.setBackground(var6);
+        var10.setForeground(Color.WHITE);
+        var10.setFont(new Font("SansSerif", Font.BOLD, 10));
+        var10.setBorder(BorderFactory.createEmptyBorder(3, 8, 3, 8));
+        JPanel var11 = new JPanel(new BorderLayout(8, 0));
+        var11.setOpaque(false);
+        JPanel var12 = new JPanel();
+        var12.setOpaque(false);
+        var12.setLayout(new BoxLayout(var12, BoxLayout.Y_AXIS));
+        var12.add(var8);
+        var12.add(Box.createVerticalStrut(2));
+        var12.add(var9);
+        var11.add(var12, BorderLayout.CENTER);
+        var11.add(var10, BorderLayout.EAST);
+        var7.add(var11, BorderLayout.NORTH);
+        var7.add(var1, BorderLayout.SOUTH);
+        this.bindCardClickToButton(var7, var1);
+        return var7;
+    }
+
+    /**
+     * Binds card clicks to the provided button action so the entire tile is clickable.
+     *
+     * @param var1 launcher card root panel
+     * @param var2 target action button
+     */
+    private void bindCardClickToButton(JPanel var1, JButton var2) {
+        MouseAdapter var3 = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent var1x) {
+                if (var1x.getButton() == MouseEvent.BUTTON1 && var2.isEnabled()) {
+                    var2.doClick();
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent var1x) {
+                Vindutest.this.updateLauncherCardHoverState(var1, true);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent var1x) {
+                Vindutest.this.updateLauncherCardHoverState(var1, false);
+            }
+        };
+        this.bindCardClickRecursively(var1, var2, var3);
+    }
+
+    /**
+     * Applies the normal or hovered visual state for one launcher card.
+     *
+     * @param var1 card panel
+     * @param var2 accent color for the category
+     * @param var3 whether the hovered style should be applied
+     */
+    private void applyLauncherCardState(JPanel var1, Color var2, boolean var3) {
+        Color var4 = var3 ? new Color(244, 248, 255) : new Color(252, 253, 255);
+        Color var5 = var3 ? var2.darker() : new Color(215, 222, 234);
+        var1.setBackground(var4);
+        var1.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(var5), BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 4, 0, 0, var2), BorderFactory.createEmptyBorder(10, 10, 10, 10))));
+    }
+
+    /**
+     * Updates hover state only when the mouse has fully entered or left the card root.
+     *
+     * @param var1 launcher card root
+     * @param var2 requested hover state
+     */
+    private void updateLauncherCardHoverState(JPanel var1, boolean var2) {
+        Color var3 = (Color)var1.getClientProperty("launcherAccentColor");
+        if (var3 == null) {
+            var3 = BUTTON_PRIMARY_COLOR;
+        }
+
+        if (var2) {
+            this.applyLauncherCardState(var1, var3, true);
+        } else {
+            Point var4 = MouseInfo.getPointerInfo() == null ? null : MouseInfo.getPointerInfo().getLocation();
+            if (var4 != null) {
+                SwingUtilities.convertPointFromScreen(var4, var1);
+                if (var1.contains(var4)) {
+                    return;
+                }
+            }
+
+            this.applyLauncherCardState(var1, var3, false);
+        }
+    }
+
+    /**
+     * Recursively applies click forwarding to all non-button components in the card.
+     *
+     * @param var1 component to bind
+     * @param var2 button target
+     * @param var3 shared click adapter
+     */
+    private void bindCardClickRecursively(JComponent var1, JButton var2, MouseAdapter var3) {
+        if (var1 != var2) {
+            var1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            var1.addMouseListener(var3);
+        }
+
+        for(java.awt.Component var7 : var1.getComponents()) {
+            if (var7 instanceof JComponent) {
+                this.bindCardClickRecursively((JComponent)var7, var2, var3);
+            }
+        }
+    }
+
+    /**
+     * Builds quick overview actions that stay accessible from the main dashboard.
+     *
+     * @return quick overview panel
+     */
+    private JPanel buildQuickOverviewPanel() {
+        JPanel var1 = new JPanel(new GridLayout(0, 1, 0, 8));
+        var1.setOpaque(true);
+        var1.setBackground(CARD_BACKGROUND_COLOR);
+        var1.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(CARD_BORDER_COLOR), "Hurtigvisning", 1, 2, SECTION_TITLE_FONT, new Color(55, 63, 78)), BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        var1.add(this.visBilBtn);
+        var1.add(this.visHusBtn);
+        var1.add(this.visReiseBtn);
+        var1.add(this.visFriBtn);
+        var1.add(this.visSkadeBtn);
+        return var1;
     }
 
     /**
@@ -309,7 +492,7 @@ public final class Vindutest extends JFrame {
             this.styleTextField(var5);
         }
 
-        JButton[] var7 = new JButton[]{this.leggTilKundeBtn, this.finnKundeBtn, this.slettKundeBtn, this.leggTilBilBtn, this.visBilBtn, this.leggTilHusBtn, this.visHusBtn, this.leggTilReiseBtn, this.visReiseBtn, this.leggTilFriBtn, this.visFriBtn, this.leggTilSkadeBtn, this.visSkadeBtn, this.lagreBtn, this.lastBtn, this.visLagretBtn, this.hurtigVisSkadeBtn};
+        JButton[] var7 = new JButton[]{this.leggTilKundeBtn, this.finnKundeBtn, this.slettKundeBtn, this.leggTilBilBtn, this.visBilBtn, this.leggTilHusBtn, this.visHusBtn, this.leggTilReiseBtn, this.visReiseBtn, this.leggTilFriBtn, this.visFriBtn, this.leggTilSkadeBtn, this.visSkadeBtn, this.lagreBtn, this.lastBtn, this.visLagretBtn, this.hurtigVisSkadeBtn, this.openKundeVinduBtn, this.openBilVinduBtn, this.openHusVinduBtn, this.openReiseVinduBtn, this.openFriVinduBtn, this.openSkadeVinduBtn};
 
         for(JButton var6 : var7) {
             this.styleButton(var6);
@@ -322,6 +505,18 @@ public final class Vindutest extends JFrame {
         this.stylePrimaryButton(this.leggTilFriBtn);
         this.stylePrimaryButton(this.leggTilSkadeBtn);
         this.stylePrimaryButton(this.lagreBtn);
+        this.stylePrimaryButton(this.openKundeVinduBtn);
+        this.stylePrimaryButton(this.openBilVinduBtn);
+        this.stylePrimaryButton(this.openHusVinduBtn);
+        this.stylePrimaryButton(this.openReiseVinduBtn);
+        this.stylePrimaryButton(this.openFriVinduBtn);
+        this.stylePrimaryButton(this.openSkadeVinduBtn);
+        this.styleLauncherButton(this.openKundeVinduBtn);
+        this.styleLauncherButton(this.openBilVinduBtn);
+        this.styleLauncherButton(this.openHusVinduBtn);
+        this.styleLauncherButton(this.openReiseVinduBtn);
+        this.styleLauncherButton(this.openFriVinduBtn);
+        this.styleLauncherButton(this.openSkadeVinduBtn);
         this.bilTypeCombo.setFont(FIELD_FONT);
         this.bilTypeCombo.setBackground(Color.WHITE);
         this.skadeTypeCombo.setFont(FIELD_FONT);
@@ -383,7 +578,7 @@ public final class Vindutest extends JFrame {
         this.addLabeledRow(var1, var2++, "Sum", this.reiseSumFelt);
         this.addLabeledRow(var1, var2++, "Bonus (0-100)", this.reiseBonusFelt);
         this.addHelperRow(var1, var2++, this.reiseBonusFelt, "Bruk prosent 0-100. Desimaler som 12,5 er tillatt.");
-        this.addButtonRow(var1, var2, this.leggTilReiseBtn, this.visReiseBtn);
+        this.addSingleButtonRow(var1, var2, this.leggTilReiseBtn);
         return var1;
     }
 
@@ -405,7 +600,7 @@ public final class Vindutest extends JFrame {
         this.addLabeledRow(var1, var2++, "Beløp I", this.friBelopIFelt);
         this.addLabeledRow(var1, var2++, "Byggeår", this.friByggeaarFelt);
         this.addLabeledRow(var1, var2++, "Bonus (0-100)", this.friBonusFelt);
-        this.addButtonRow(var1, var2, this.leggTilFriBtn, this.visFriBtn);
+        this.addSingleButtonRow(var1, var2, this.leggTilFriBtn);
         return var1;
     }
 
@@ -430,7 +625,7 @@ public final class Vindutest extends JFrame {
         this.addHelperRow(var1, var2++, this.skadeUtbetaltFelt, "Tillater desimaler, for eksempel 10000,00.");
         this.addLabeledRow(var1, var2++, "Koblet objekt", this.skadeKoblingTypeCombo);
         this.addLabeledRow(var1, var2++, "Referanse", this.skadeKoblingReferanseFelt);
-        this.addButtonRow(var1, var2, this.leggTilSkadeBtn, this.visSkadeBtn);
+        this.addSingleButtonRow(var1, var2, this.leggTilSkadeBtn);
         return var1;
     }
 
@@ -521,7 +716,7 @@ public final class Vindutest extends JFrame {
         this.addLabeledRow(var1, var2++, "Årsmodell", this.bilAarFelt);
         this.addLabeledRow(var1, var2++, "Motor type", this.bilMotorTypeFelt);
         this.addLabeledRow(var1, var2++, "Motorstyrke", this.bilMotorStyrkeFelt);
-        this.addButtonRow(var1, var2, this.leggTilBilBtn, this.visBilBtn);
+        this.addSingleButtonRow(var1, var2, this.leggTilBilBtn);
         return var1;
     }
 
@@ -543,7 +738,7 @@ public final class Vindutest extends JFrame {
         this.addLabeledRow(var1, var2++, "Byggeår", this.husByggeaarFelt);
         this.addLabeledRow(var1, var2++, "Standard", this.husStandardFelt);
         this.addLabeledRow(var1, var2++, "Bonus (0-100)", this.husBonusFelt);
-        this.addButtonRow(var1, var2, this.leggTilHusBtn, this.visHusBtn);
+        this.addSingleButtonRow(var1, var2, this.leggTilHusBtn);
         return var1;
     }
 
@@ -687,6 +882,16 @@ public final class Vindutest extends JFrame {
     }
 
     /**
+     * Applies a larger style for dashboard launcher actions.
+     *
+     * @param var1 launcher button to style
+     */
+    private void styleLauncherButton(JButton var1) {
+        var1.setFont(new Font("SansSerif", Font.BOLD, 12));
+        var1.setPreferredSize(new Dimension(180, 34));
+    }
+
+    /**
      * Wraps a {@link Runnable} so it can be attached as an action listener.
      *
      * @param var1 action body to execute
@@ -697,9 +902,39 @@ public final class Vindutest extends JFrame {
     }
 
     /**
+     * Opens one modal registration window containing the provided form panel.
+     *
+     * @param var1 dialog title
+     * @param var2 form panel to render
+     */
+    private void openRegistrationWindow(String var1, JPanel var2) {
+        JDialog var3 = new JDialog(this, var1, true);
+        var3.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        JPanel var4 = new JPanel(new BorderLayout());
+        var4.setBackground(APP_BACKGROUND_COLOR);
+        var4.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        JScrollPane var5 = new JScrollPane(var2);
+        var5.setBorder(null);
+        var5.getVerticalScrollBar().setUnitIncrement(16);
+        var4.add(var5, BorderLayout.CENTER);
+        var3.setContentPane(var4);
+        var3.pack();
+        Dimension var6 = var3.getSize();
+        var3.setSize(new Dimension(Math.max(var6.width, 640), Math.min(Math.max(var6.height, 520), 820)));
+        var3.setLocationRelativeTo(this);
+        var3.setVisible(true);
+    }
+
+    /**
      * Connects all UI controls to their corresponding handlers.
      */
     private void wireEvents() {
+        this.openKundeVinduBtn.addActionListener(this.action(() -> this.openRegistrationWindow("Kunderegistrering", this.buildKundePanel())));
+        this.openBilVinduBtn.addActionListener(this.action(() -> this.openRegistrationWindow("Bilforsikring", this.buildBilPanel())));
+        this.openHusVinduBtn.addActionListener(this.action(() -> this.openRegistrationWindow("Hus og innbo", this.buildHusPanel())));
+        this.openReiseVinduBtn.addActionListener(this.action(() -> this.openRegistrationWindow("Reiseforsikring", this.buildReisePanel())));
+        this.openFriVinduBtn.addActionListener(this.action(() -> this.openRegistrationWindow("Fritidsbolig", this.buildFriPanel())));
+        this.openSkadeVinduBtn.addActionListener(this.action(() -> this.openRegistrationWindow("Skademelding", this.buildSkadePanel())));
         this.leggTilKundeBtn.addActionListener(this.action(this::leggTilKunde));
         this.finnKundeBtn.addActionListener(this.action(this::finnKunde));
         this.slettKundeBtn.addActionListener(this.action(this::slettKunde));
