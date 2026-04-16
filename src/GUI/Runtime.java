@@ -14,9 +14,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import javax.swing.UIManager.LookAndFeelInfo;
-import projektoppgave3_2015.Bilforsikring;
-import projektoppgave3_2015.Kunde;
-import projektoppgave3_2015.Lister;
+
+import projektoppgave3_2015.*;
 
 public final class Runtime extends JFrame
 {
@@ -314,22 +313,29 @@ public final class Runtime extends JFrame
         //displayBilForsikiringPanel.add(displayText,BorderLayout.AFTER_LINE_ENDS);
         // displayBilForsikiringPanel.add(displayText ,BorderLayout.)
 
-        //displayTable1.add(new JTextArea(35,5));
-        displayContent1.add(new JLabel("kunder navn"));
-        displayContent1.add(KundeNrfeltb);
-        displayContent1.add(new JLabel("Biltype"));
-        displayContent1.add(biltypefelt);
-        displayContent1.add(new JLabel("Registrerings År"));
-        displayContent1.add(regarfelt);
-        displayContent1.add(new JLabel("Registrerings Nummer"));
-        displayContent1.add(regnrfelt);
-        displayContent1.add(new JLabel("Kjøre Lengde"));
-        displayContent1.add(kjørelengdefelt);
-        displayContent1.add(new JLabel("Bonus"));
-        displayContent1.add(bonusfelt);
-        displayContent1.add(new JLabel("Bil modell"));
-        displayContent1.add(modellfelt);
-        displayContent1.add(new JLabel(""));
+         //displayTable1.add(new JTextArea(35,5));
+         displayContent1.add(new JLabel("kunder navn"));
+         KundeNrfeltb.setText("12345");
+         displayContent1.add(KundeNrfeltb);
+         displayContent1.add(new JLabel("Biltype"));
+         biltypefelt.setText("Sedan");
+         displayContent1.add(biltypefelt);
+         displayContent1.add(new JLabel("Registrerings År"));
+         regarfelt.setText("2023");
+         displayContent1.add(regarfelt);
+         displayContent1.add(new JLabel("Registrerings Nummer"));
+         regnrfelt.setText("ABC123");
+         displayContent1.add(regnrfelt);
+         displayContent1.add(new JLabel("Kjøre Lengde"));
+         kjørelengdefelt.setText("5000");
+         displayContent1.add(kjørelengdefelt);
+         displayContent1.add(new JLabel("Bonus"));
+         bonusfelt.setText("0.0");
+         displayContent1.add(bonusfelt);
+         displayContent1.add(new JLabel("Bil modell"));
+         modellfelt.setText("2023");
+         displayContent1.add(modellfelt);
+         displayContent1.add(new JLabel(""));
        // displayContent1c.add(displayContent1);
         //displayContent1c.add(displayContent1b);
         //displayContent1c.setBorder(BorderFactory.createTitledBorder("Kunder"));
@@ -412,152 +418,423 @@ public final class Runtime extends JFrame
 
     }
 
-    private void BaatForsikiringTable()
-    {
+     private void BaatForsikiringTable()
+     {
 
-        displayBaaForsikiringpPanel.setLayout(new BorderLayout());
-        displayBaaForsikiringpPanel.add(displayContent, BorderLayout.CENTER);
-        displayBaaForsikiringpPanel.add(displayButton, BorderLayout.SOUTH);
-        displayBaaForsikiringpPanel.add(displayTable, BorderLayout.NORTH);
+         displayBaaForsikiringpPanel.setLayout(new BorderLayout());
+         displayBaaForsikiringpPanel.add(displayContent, BorderLayout.CENTER);
+         displayBaaForsikiringpPanel.add(displayButton, BorderLayout.SOUTH);
+         displayBaaForsikiringpPanel.add(displayTable, BorderLayout.NORTH);
 
-         //displayBaaForsikiringpPanel.add(utsrift,BorderLayout.EAST);
-        displayContent.add(new JLabel("kunderNr"));
-        displayContent.add(kunderNrfelt1);
+          //displayBaaForsikiringpPanel.add(utsrift,BorderLayout.EAST);
+         displayContent.add(new JLabel("kunderNr"));
+         kunderNrfelt1.setText("12345");
+         displayContent.add(kunderNrfelt1);
 
-        displayContent.add(new JLabel("Registrerings Nummer"));
-        displayContent.add(regnumfelt);
+         displayContent.add(new JLabel("Registrerings Nummer"));
+         regnumfelt.setText("B001");
+         displayContent.add(regnumfelt);
 
-        displayContent.add(new JLabel("Båt Type"));
-        displayContent.add(baatypefelt);
+         displayContent.add(new JLabel("Båt Type"));
+         baatypefelt.setText("Seilbåt");
+         displayContent.add(baatypefelt);
 
-        displayContent.add(new JLabel("Båt modell"));
-        displayContent.add(modellfelt1);
+         displayContent.add(new JLabel("Båt modell"));
+         modellfelt1.setText("Model X");
+         displayContent.add(modellfelt1);
 
-        displayContent.add(new JLabel("Båt Lengde"));
-        displayContent.add(lengdefelt);
+         displayContent.add(new JLabel("Båt Lengde"));
+         lengdefelt.setText("8");
+         displayContent.add(lengdefelt);
 
-        displayContent.add(new JLabel("Båt Årsmodell"));
-        displayContent.add(årsmodellfelt);
+         displayContent.add(new JLabel("Båt Årsmodell"));
+         årsmodellfelt.setText("2022");
+         displayContent.add(årsmodellfelt);
 
-        displayContent.add(new JLabel("MotorStyrk"));
-        displayContent.add(motorstyrkfelt);
+         displayContent.add(new JLabel("MotorStyrk"));
+         motorstyrkfelt.setText("50");
+         displayContent.add(motorstyrkfelt);
 
-        displayContent.add(new JLabel("Motor Type"));
-        displayContent.add(motortypefelt);
+         displayContent.add(new JLabel("Motor Type"));
+         motortypefelt.setText("Diesel");
+         displayContent.add(motortypefelt);
 
-        displayContent.add(new JLabel("Bonus"));
-        displayContent.add(bonusfelf2);
+         displayContent.add(new JLabel("Bonus"));
+         bonusfelf2.setText("0.0");
+         displayContent.add(bonusfelf2);
 
-        displayButton.add(addNew1);
-        displayButton.add(save1);
-        displayButton.add(view1);
-        displayButton.add(exit1);
+         displayButton.add(addNew1);
+         displayButton.add(save1);
+         displayButton.add(view1);
+         displayButton.add(exit1);
 
-        displayBaaForsikiringpPanel.add(displayContent, BorderLayout.WEST);
-        displayBaaForsikiringpPanel.add(utskriftbaat, BorderLayout.CENTER);
+         displayBaaForsikiringpPanel.add(displayContent, BorderLayout.WEST);
+         displayBaaForsikiringpPanel.add(utskriftbaat, BorderLayout.CENTER);
 
-        exit1.addActionListener((ActionEvent e) ->
-        {
-            System.exit(0);
-        });//luker vindu
-    }
+         addNew1.addActionListener(new ActionListener()
+         {
+             @Override
+             public void actionPerformed(ActionEvent e)
+             {
+                 if (kunderNrfelt1.getText().isEmpty() || regnumfelt.getText().isEmpty() ||
+                     baatypefelt.getText().isEmpty() || modellfelt1.getText().isEmpty() ||
+                     lengdefelt.getText().isEmpty() || årsmodellfelt.getText().isEmpty() ||
+                     motorstyrkfelt.getText().isEmpty() || motortypefelt.getText().isEmpty())
+                 {
+                     melding("Du må fylle inn all informasjon om båt for å registrere.");
+                     return;
+                 }
+                 try
+                 {
+                     int kunderNr = Integer.parseInt(kunderNrfelt1.getText());
+                     String regNum = regnumfelt.getText();
+                     String baatType = baatypefelt.getText();
+                     String modell = modellfelt1.getText();
+                     int lengde = Integer.parseInt(lengdefelt.getText());
+                     int årsmodell = Integer.parseInt(årsmodellfelt.getText());
+                     String motortype = motortypefelt.getText();
+                     int motorstyrke = Integer.parseInt(motorstyrkfelt.getText());
+                     double bonus = bonusfelf2.getText().isEmpty() ? 0.0 : Double.parseDouble(bonusfelf2.getText());
 
-    private void ReiseForsikiringTable()
-    {
-        displayReiseForsikiringpPanel.setLayout(new BorderLayout());
-        displayReiseForsikiringpPanel.add(displayButton2, BorderLayout.SOUTH);
-        displayReiseForsikiringpPanel.add(displayContent2, BorderLayout.CENTER);
-        displayReiseForsikiringpPanel.add(displayTable2, BorderLayout.NORTH);
+                     BaatForsikring baat = new BaatForsikring(null, regNum, baatType, modell, lengde, årsmodell, motortype, motorstyrke, bonus, 4, 0.0);
+                     Kunde k = lister.finnKunder(kunderNr);
+                     if (k != null)
+                     {
+                         utskriftbaat.setText(k.toString() + " er registrert på \n" + baat.toString());
+                     }
+                     else
+                     {
+                         utskriftbaat.setText("Fant ikke kunde med nummer: " + kunderNr);
+                     }
+                 }
+                 catch (NumberFormatException ex)
+                 {
+                     melding("Vennligst skriv inn gyldige tall for numeriske felt.");
+                 }
+             }
+         });
 
-        exit.addActionListener((ActionEvent e) ->
-        {
-            System.exit(0);
-        });
+         view1.addActionListener((ActionEvent e) ->
+         {
+             utskriftbaat.setText(lister.visbaat());
+         });
 
-    }
+         save1.addActionListener((ActionEvent e) ->
+         {
+             try
+             {
+                 lister.skrivbilfil("lister.txt");
+                 melding("Data lagret med suksess!");
+             }
+             catch (Exception ex)
+             {
+                 melding("Feil ved lagring av data: " + ex.getMessage());
+             }
+         });
 
-    private void HusinnBoForsikringTable()
-    {
-        displayHusogInnboForsikiringpPanel.setLayout(new BorderLayout());
+         exit1.addActionListener((ActionEvent e) ->
+         {
+             System.exit(0);
+         });//luker vindu
+     }
 
-        //displayHusogInnboForsikiringpPanel.add(displayContent3 ,BorderLayout.EAST);
-        displayHusogInnboForsikiringpPanel.add(leggcont1opmeg3, BorderLayout.CENTER);
-        displayHusogInnboForsikiringpPanel.add(displayButton3, BorderLayout.SOUTH);
-        displayHusogInnboForsikiringpPanel.add(displayTable3, BorderLayout.EAST);
+     private void ReiseForsikiringTable()
+     {
+         displayReiseForsikiringpPanel.setLayout(new BorderLayout());
+         displayReiseForsikiringpPanel.add(displayButton2, BorderLayout.SOUTH);
+         displayReiseForsikiringpPanel.add(displayContent2, BorderLayout.CENTER);
+         displayReiseForsikiringpPanel.add(displayTable2, BorderLayout.NORTH);
 
-        displayContent3.add(new JLabel("BoligenAdress"));
-        displayContent3.add(BoligenAdress);
-        displayContent3.add(new JLabel("BoligType"));
-        displayContent3.add(Boligtype);
-        displayContent3.add(new JLabel("ByggeMateriale"));
-        displayContent3.add(Byggematerial);
-        displayContent3.add(new JLabel("Standard"));
-        displayContent3.add(standard);
-        displayContent3.add(new JLabel("Byggeaar"));
-        displayContent3.add(Byggeaar);
-        displayContent3.add(new JLabel("AntallKvardratmeter"));
-        displayContent3.add(AntallKvardratmeter);
-        displayContent3.add(new JLabel("BelopB"));
-        displayContent3.add(BelopB);
-        displayContent3.add(new JLabel("Bonus"));
-        displayContent3.add(Bounus);
+         // Add input fields for Reise
+         displayContent2.add(new JLabel("Kunde Nummer"));
+         JTextField kundeNrReise = new JTextField();
+         displayContent2.add(kundeNrReise);
 
-        displayButton3.add(addNew2);
-        displayButton3.add(save2);
-        displayButton3.add(view2);
-        displayButton3.add(exit2);
-        leggcont1opmeg3.add(displayContent3, BorderLayout.WEST);
-        leggcont1opmeg3.add(outputhus, BorderLayout.CENTER);
+         displayContent2.add(new JLabel("Område"));
+         JTextField områdeReise = new JTextField();
+         displayContent2.add(områdeReise);
 
-       //  displayButton3.add(addNew2);
-        //displayButton3.add(save2);
-        // displayButton3.add(view2);
-        //displayButton3.add(eixt2);
-        exit2.addActionListener((ActionEvent e) ->
-        {
-            System.exit(0);
-        });
+         displayContent2.add(new JLabel("Forsikringssum"));
+         JTextField summReise = new JTextField();
+         displayContent2.add(summReise);
 
-    }
+         displayContent2.add(new JLabel("Bonus (%)"));
+         JTextField bonusReise = new JTextField();
+         displayContent2.add(bonusReise);
 
-    private void fritidsForsikiringTable()
-    {
-        displayFriTidsForsikiringpPanel.setLayout(new BorderLayout());
+         JButton addNewReise = new JButton("Add New");
+         JButton viewReise = new JButton("View");
+         JButton saveReise = new JButton("Save");
+         JButton exitReise = new JButton("Exit");
+
+         displayButton2.add(addNewReise);
+         displayButton2.add(viewReise);
+         displayButton2.add(saveReise);
+         displayButton2.add(exitReise);
+
+         displayReiseForsikiringpPanel.add(outputReise, BorderLayout.EAST);
+
+         addNewReise.addActionListener(new ActionListener()
+         {
+             @Override
+             public void actionPerformed(ActionEvent e)
+             {
+                 if (kundeNrReise.getText().isEmpty() || områdeReise.getText().isEmpty() ||
+                     summReise.getText().isEmpty())
+                 {
+                     melding("Du må fylle inn alle påkrevde felt for reiseforsikring.");
+                     return;
+                 }
+                 try
+                 {
+                     String kundeNr = kundeNrReise.getText();
+                     String område = områdeReise.getText();
+                     int sum = Integer.parseInt(summReise.getText());
+                     double bonus = bonusReise.getText().isEmpty() ? 0.0 : Double.parseDouble(bonusReise.getText());
+
+                     Reise reise = new Reise(kundeNr, område, sum, 3, bonus);
+                     outputReise.setText(reise.toString());
+                 }
+                 catch (NumberFormatException ex)
+                 {
+                     melding("Vennligst skriv inn gyldige tall for numeriske felt.");
+                 }
+             }
+         });
+
+         viewReise.addActionListener((ActionEvent e) ->
+         {
+             outputReise.setText("Reiseforsikring oversikt kommer her.");
+         });
+
+         saveReise.addActionListener((ActionEvent e) ->
+         {
+             try
+             {
+                 lister.skrivbilfil("lister.txt");
+                 melding("Data lagret med suksess!");
+             }
+             catch (Exception ex)
+             {
+                 melding("Feil ved lagring av data: " + ex.getMessage());
+             }
+         });
+
+         exitReise.addActionListener((ActionEvent e) ->
+         {
+             System.exit(0);
+         });
+
+     }
+
+     private void HusinnBoForsikringTable()
+     {
+         displayHusogInnboForsikiringpPanel.setLayout(new BorderLayout());
+
+         //displayHusogInnboForsikiringpPanel.add(displayContent3 ,BorderLayout.EAST);
+         displayHusogInnboForsikiringpPanel.add(leggcont1opmeg3, BorderLayout.CENTER);
+         displayHusogInnboForsikiringpPanel.add(displayButton3, BorderLayout.SOUTH);
+         displayHusogInnboForsikiringpPanel.add(displayTable3, BorderLayout.EAST);
+
+         displayContent3.add(new JLabel("BoligenAdress"));
+         BoligenAdress.setText("Eksempel gate 1");
+         displayContent3.add(BoligenAdress);
+         displayContent3.add(new JLabel("BoligType"));
+         Boligtype.setText("Enebolig");
+         displayContent3.add(Boligtype);
+         displayContent3.add(new JLabel("ByggeMateriale"));
+         Byggematerial.setText("Tre");
+         displayContent3.add(Byggematerial);
+         displayContent3.add(new JLabel("Standard"));
+         standard.setText("Standard");
+         displayContent3.add(standard);
+         displayContent3.add(new JLabel("Byggeaar"));
+         Byggeaar.setText("1995");
+         displayContent3.add(Byggeaar);
+         displayContent3.add(new JLabel("AntallKvardratmeter"));
+         AntallKvardratmeter.setText("150");
+         displayContent3.add(AntallKvardratmeter);
+         displayContent3.add(new JLabel("BelopB"));
+         BelopB.setText("5000");
+         displayContent3.add(BelopB);
+         displayContent3.add(new JLabel("Bonus"));
+         Bounus.setText("0.0");
+         displayContent3.add(Bounus);
+
+         displayButton3.add(addNew2);
+         displayButton3.add(save2);
+         displayButton3.add(view2);
+         displayButton3.add(exit2);
+         leggcont1opmeg3.add(displayContent3, BorderLayout.WEST);
+         leggcont1opmeg3.add(outputhus, BorderLayout.CENTER);
+
+        //  displayButton3.add(addNew2);
+         //displayButton3.add(save2);
+         // displayButton3.add(view2);
+         //displayButton3.add(eixt2);
+
+         addNew2.addActionListener(new ActionListener()
+         {
+             @Override
+             public void actionPerformed(ActionEvent e)
+             {
+                 if (BoligenAdress.getText().isEmpty() || Boligtype.getText().isEmpty() ||
+                     Byggematerial.getText().isEmpty() || standard.getText().isEmpty() ||
+                     Byggeaar.getText().isEmpty() || AntallKvardratmeter.getText().isEmpty() ||
+                     BelopB.getText().isEmpty())
+                 {
+                     melding("Du må fylle inn all informasjon om hus og innbo for å registrere.");
+                     return;
+                 }
+                 try
+                 {
+                     int kunde = Integer.parseInt(KundeNrfeltb.getText().isEmpty() ? "0" : KundeNrfeltb.getText());
+                     String adresse = BoligenAdress.getText();
+                     String boligtype = Boligtype.getText();
+                     String byggemateriale = Byggematerial.getText();
+                     String std = standard.getText();
+                     int byggeaar = Integer.parseInt(Byggeaar.getText());
+                     int kvm = Integer.parseInt(AntallKvardratmeter.getText());
+                     int belopB = Integer.parseInt(BelopB.getText());
+                     int belopI = 0; // Default for contents
+
+                     Husoginnboforsikring hus = new Husoginnboforsikring(kunde, adresse, boligtype, null,
+                                                                         byggemateriale, kvm, belopB, belopI, byggeaar, std, 2);
+                     outputhus.setText(hus.toString());
+                 }
+                 catch (NumberFormatException ex)
+                 {
+                     melding("Vennligst skriv inn gyldige tall for numeriske felt.");
+                 }
+             }
+         });
+
+         view2.addActionListener((ActionEvent e) ->
+         {
+             outputhus.setText("Hus og innbo forsikring oversikt kommer her.");
+         });
+
+         save2.addActionListener((ActionEvent e) ->
+         {
+             try
+             {
+                 lister.skrivbilfil("lister.txt");
+                 melding("Data lagret med suksess!");
+             }
+             catch (Exception ex)
+             {
+                 melding("Feil ved lagring av data: " + ex.getMessage());
+             }
+         });
+
+         exit2.addActionListener((ActionEvent e) ->
+         {
+             System.exit(0);
+         });
+
+     }
+
+     private void fritidsForsikiringTable()
+     {
+         displayFriTidsForsikiringpPanel.setLayout(new BorderLayout());
 //        displayFriTidsForsikiringpPanel.add(displayButton4 ,BorderLayout.SOUTH);
 //        displayFriTidsForsikiringpPanel.add(displayContent4 ,BorderLayout.WEST);
 //        displayFriTidsForsikiringpPanel.add(displayTable4 , BorderLayout.NORTH);
-        displayFriTidsForsikiringpPanel.add(leggcont1opmeg4, BorderLayout.CENTER);
-        displayFriTidsForsikiringpPanel.add(displayButton4, BorderLayout.SOUTH);
-        displayFriTidsForsikiringpPanel.add(displayTable1, BorderLayout.EAST);
+         displayFriTidsForsikiringpPanel.add(leggcont1opmeg4, BorderLayout.CENTER);
+         displayFriTidsForsikiringpPanel.add(displayButton4, BorderLayout.SOUTH);
+         displayFriTidsForsikiringpPanel.add(displayTable1, BorderLayout.EAST);
 
-        displayContent4.add(new JLabel("BoligenAdress"));
-        displayContent4.add(BoligenAdress1);
-        displayContent4.add(new JLabel("BoligType"));
-        displayContent4.add(BoligType1);
-        displayContent4.add(new JLabel("ByggeMateriale"));
-        displayContent4.add(Byggematerial1);
-        displayContent4.add(new JLabel("Standard"));
-        displayContent4.add(Standerd1);
-        displayContent4.add(new JLabel("Byggeaar"));
-        displayContent4.add(Byggeaar1);
-        displayContent4.add(new JLabel("AntallKvardratmeter"));
-        displayContent4.add(AntallKvadrataMeter1);
-        displayContent4.add(new JLabel("BelopB"));
-        displayContent4.add(BelopB1);
-        displayContent4.add(new JLabel("Bonus"));
-        displayContent4.add(Bounus1);
+         displayContent4.add(new JLabel("BoligenAdress"));
+         BoligenAdress1.setText("Hytte adresse 1");
+         displayContent4.add(BoligenAdress1);
+         displayContent4.add(new JLabel("BoligType"));
+         BoligType1.setText("Hytte");
+         displayContent4.add(BoligType1);
+         displayContent4.add(new JLabel("ByggeMateriale"));
+         Byggematerial1.setText("Tre");
+         displayContent4.add(Byggematerial1);
+         displayContent4.add(new JLabel("Standard"));
+         Standerd1.setText("Enkel");
+         displayContent4.add(Standerd1);
+         displayContent4.add(new JLabel("Byggeaar"));
+         Byggeaar1.setText("2000");
+         displayContent4.add(Byggeaar1);
+         displayContent4.add(new JLabel("AntallKvardratmeter"));
+         AntallKvadrataMeter1.setText("80");
+         displayContent4.add(AntallKvadrataMeter1);
+         displayContent4.add(new JLabel("BelopB"));
+         BelopB1.setText("3000");
+         displayContent4.add(BelopB1);
+         displayContent4.add(new JLabel("Bonus"));
+         Bounus1.setText("0.0");
+         displayContent4.add(Bounus1);
 
-        displayButton4.add(addNew3);
-        displayButton4.add(save3);
-        displayButton4.add(view3);
-        displayButton4.add(exit3);
-        leggcont1opmeg4.add(displayContent4, BorderLayout.WEST);
-        leggcont1opmeg4.add(outputfrihus, BorderLayout.CENTER);
+         displayButton4.add(addNew3);
+         displayButton4.add(save3);
+         displayButton4.add(view3);
+         displayButton4.add(exit3);
+         leggcont1opmeg4.add(displayContent4, BorderLayout.WEST);
+         leggcont1opmeg4.add(outputfrihus, BorderLayout.CENTER);
 
-        exit3.addActionListener((ActionEvent e) ->
-        {
-            System.exit(0);
-        });
-    }
+         addNew3.addActionListener(new ActionListener()
+         {
+             @Override
+             public void actionPerformed(ActionEvent e)
+             {
+                 if (BoligenAdress1.getText().isEmpty() || BoligType1.getText().isEmpty() ||
+                     Byggematerial1.getText().isEmpty() || Standerd1.getText().isEmpty() ||
+                     Byggeaar1.getText().isEmpty() || AntallKvadrataMeter1.getText().isEmpty() ||
+                     BelopB1.getText().isEmpty())
+                 {
+                     melding("Du må fylle inn all informasjon om fritidshus for å registrere.");
+                     return;
+                 }
+                 try
+                 {
+                     String adresse = BoligenAdress1.getText();
+                     String boligtype = BoligType1.getText();
+                     String byggemateriale = Byggematerial1.getText();
+                     String standard = Standerd1.getText();
+                     int byggeaar = Integer.parseInt(Byggeaar1.getText());
+                     int kvm = Integer.parseInt(AntallKvadrataMeter1.getText());
+                     int belopB = Integer.parseInt(BelopB1.getText());
+                     int belopI = Integer.parseInt(BelopB1.getText()); // Using same as building amount as default
+                     double bonus = Bounus1.getText().isEmpty() ? 0.0 : Double.parseDouble(Bounus1.getText());
+
+                     FritidsboligForsikiring fritids = new FritidsboligForsikiring(adresse, null, boligtype,
+                                                                                    byggemateriale, standard, belopI,
+                                                                                    belopB, byggeaar, kvm, bonus, 5);
+                     outputfrihus.setText(fritids.toString());
+                 }
+                 catch (NumberFormatException ex)
+                 {
+                     melding("Vennligst skriv inn gyldige tall for numeriske felt.");
+                 }
+             }
+         });
+
+         view3.addActionListener((ActionEvent e) ->
+         {
+             outputfrihus.setText("Fritidsforsikring oversikt kommer her.");
+         });
+
+         save3.addActionListener((ActionEvent e) ->
+         {
+             try
+             {
+                 lister.skrivbilfil("lister.txt");
+                 melding("Data lagret med suksess!");
+             }
+             catch (Exception ex)
+             {
+                 melding("Feil ved lagring av data: " + ex.getMessage());
+             }
+         });
+
+         exit3.addActionListener((ActionEvent e) ->
+         {
+             System.exit(0);
+         });
+     }
 
 }
