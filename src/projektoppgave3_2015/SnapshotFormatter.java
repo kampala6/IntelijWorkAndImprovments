@@ -42,7 +42,7 @@ public final class SnapshotFormatter {
                 }
 
                 if (!var9.isEmpty()) {
-                    var4.append(var9).append("\n");
+                    var4.append(this.normalizeLegacyDisplayLine(var9)).append("\n");
                 }
             }
 
@@ -192,13 +192,13 @@ public final class SnapshotFormatter {
         ArrayList var3 = new ArrayList();
         switch (var1) {
             case "Kunde":
-                this.appendDisplayField(var3, "kunderNr", (String)var2.get("kundeNr"));
+                this.appendDisplayField(var3, "Kundenummer", (String)var2.get("kundeNr"));
                 this.appendDisplayField(var3, "Navn", (String)var2.get("navn"));
-                this.appendDisplayField(var3, "FakturaAdresse", (String)var2.get("fakturaAdresse"));
+                this.appendDisplayField(var3, "Fakturaadresse", (String)var2.get("fakturaAdresse"));
                 this.appendDisplayField(var3, "Dato", (String)var2.get("dato"));
                 break;
             case "Bilforsikring":
-                this.appendDisplayField(var3, "kunderNr", this.firstNonBlank((String)var2.get("kunder"), (String)var2.get("kunde")));
+                this.appendDisplayField(var3, "Kundenummer", this.firstNonBlank((String)var2.get("kunder"), (String)var2.get("kunde")));
                 this.appendDisplayField(var3, "Registreringsnummer", (String)var2.get("registreringsnummer"));
                 this.appendDisplayField(var3, "Biltype", (String)var2.get("biltype"));
                 this.appendDisplayField(var3, "Modell", (String)var2.get("modell"));
@@ -210,15 +210,15 @@ public final class SnapshotFormatter {
                 this.appendDisplayField(var3, "Premie", (String)var2.get("premie"));
                 break;
             case "Husoginnboforsikring":
-                this.appendDisplayField(var3, "kunderNr", (String)var2.get("kunde"));
+                this.appendDisplayField(var3, "Kundenummer", (String)var2.get("kunde"));
                 this.appendDisplayField(var3, "BoligensAdresse", (String)var2.get("boligensAdresse"));
                 this.appendDisplayField(var3, "Byggeaar", (String)var2.get("byggeaar"));
                 this.appendDisplayField(var3, "Boligtype", (String)var2.get("boligtype"));
                 this.appendDisplayField(var3, "Byggemateriale", (String)var2.get("byggemateriale"));
                 this.appendDisplayField(var3, "Standard", (String)var2.get("standard"));
                 this.appendDisplayField(var3, "AntallKvadratmeter", (String)var2.get("antallKvadratmeter"));
-                this.appendDisplayField(var3, "BelopB", (String)var2.get("belopB"));
-                this.appendDisplayField(var3, "BelopI", (String)var2.get("belopI"));
+                this.appendDisplayField(var3, "Belop bygg", (String)var2.get("belopB"));
+                this.appendDisplayField(var3, "Belop innbo", (String)var2.get("belopI"));
                 this.appendDisplayField(var3, "Bonus", (String)var2.get("bonus"));
                 this.appendDisplayField(var3, "Premie", (String)var2.get("premie"));
                 break;
@@ -229,13 +229,13 @@ public final class SnapshotFormatter {
                 this.appendDisplayField(var3, "Byggemateriale", (String)var2.get("byggemateriale"));
                 this.appendDisplayField(var3, "Standard", (String)var2.get("standard"));
                 this.appendDisplayField(var3, "AntallKvadratmeter", (String)var2.get("antallKvadratmeter"));
-                this.appendDisplayField(var3, "BelopB", (String)var2.get("belopB"));
-                this.appendDisplayField(var3, "BelopI", (String)var2.get("belopI"));
+                this.appendDisplayField(var3, "Belop bygg", (String)var2.get("belopB"));
+                this.appendDisplayField(var3, "Belop innbo", (String)var2.get("belopI"));
                 this.appendDisplayField(var3, "Bonus", (String)var2.get("bonus"));
                 this.appendDisplayField(var3, "Premie", (String)var2.get("premie"));
                 break;
             case "Reise":
-                this.appendDisplayField(var3, "kunderNr", (String)var2.get("kunder"));
+                this.appendDisplayField(var3, "Kundenummer", (String)var2.get("kunder"));
                 this.appendDisplayField(var3, "Omrade", this.firstNonBlank((String)var2.get("område"), (String)var2.get("omrade")));
                 this.appendDisplayField(var3, "Sum", (String)var2.get("sumf"));
                 this.appendDisplayField(var3, "Dato", (String)var2.get("dato"));
@@ -244,17 +244,17 @@ public final class SnapshotFormatter {
                 break;
             case "SkadeMelding":
                 this.appendDisplayField(var3, "Dato", (String)var2.get("dato"));
-                this.appendDisplayField(var3, "SkadeNummer", (String)var2.get("skadeNummer"));
-                this.appendDisplayField(var3, "kunderNr", (String)var2.get("kundeNr"));
-                this.appendDisplayField(var3, "SkadeObjectType", (String)var2.get("skadeObjectType"));
-                this.appendDisplayField(var3, "TypeSkade", (String)var2.get("typeSkade"));
+                this.appendDisplayField(var3, "Skadenummer", (String)var2.get("skadeNummer"));
+                this.appendDisplayField(var3, "Kundenummer", (String)var2.get("kundeNr"));
+                this.appendDisplayField(var3, "Skadeobjekt type", (String)var2.get("skadeObjectType"));
+                this.appendDisplayField(var3, "Skadetype", (String)var2.get("typeSkade"));
                 this.appendDisplayField(var3, "Beskrivelse", (String)var2.get("beskrivelse"));
-                this.appendDisplayField(var3, "VitnerKontaktInfo", (String)var2.get("vitnerKontaktInfo"));
-                this.appendDisplayField(var3, "TakseringBelop", this.firstNonBlank((String)var2.get("takseringBeløp"), (String)var2.get("takseringBelop")));
-                this.appendDisplayField(var3, "UtbetaltErstatningsBelop", this.firstNonBlank((String)var2.get("utbetaltErstatningsBeløp"), (String)var2.get("utbetaltErstatningsBelop")));
-                this.appendDisplayField(var3, "KobletHusAdresse", (String)var2.get("kobletHusAdresse"));
-                this.appendDisplayField(var3, "KobletBaatRegistreringsnummer", (String)var2.get("kobletBaatRegistreringsnummer"));
-                this.appendDisplayField(var3, "KobletBilRegistreringsnummer", (String)var2.get("kobletBilRegistreringsnummer"));
+                this.appendDisplayField(var3, "Vitne kontaktinfo", (String)var2.get("vitnerKontaktInfo"));
+                this.appendDisplayField(var3, "Taksering belop", this.firstNonBlank((String)var2.get("takseringBeløp"), (String)var2.get("takseringBelop")));
+                this.appendDisplayField(var3, "Utbetalt erstatningsbelop", this.firstNonBlank((String)var2.get("utbetaltErstatningsBeløp"), (String)var2.get("utbetaltErstatningsBelop")));
+                this.appendDisplayField(var3, "Koblet husadresse", (String)var2.get("kobletHusAdresse"));
+                this.appendDisplayField(var3, "Koblet baat regnr", (String)var2.get("kobletBaatRegistreringsnummer"));
+                this.appendDisplayField(var3, "Koblet bil regnr", (String)var2.get("kobletBilRegistreringsnummer"));
                 break;
             default:
                 for(Map.Entry var7 : var2.entrySet()) {
@@ -309,7 +309,7 @@ public final class SnapshotFormatter {
                 case "kundeNr":
                 case "kunder":
                 case "kunde":
-                    return "kunderNr";
+                    return "Kundenummer";
                 case "navn":
                     return "Navn";
                 case "fakturaAdresse":
@@ -350,11 +350,31 @@ public final class SnapshotFormatter {
                 case "antallKvadratmeter":
                     return "Antall kvadratmeter";
                 case "belopB":
-                    return "Belop B";
+                    return "Belop bygg";
                 case "belopI":
-                    return "Belop I";
+                    return "Belop innbo";
                 case "premie":
                     return "Premie";
+                case "skadeNummer":
+                    return "Skadenummer";
+                case "skadeObjectType":
+                    return "Skadeobjekt type";
+                case "typeSkade":
+                    return "Skadetype";
+                case "vitnerKontaktInfo":
+                    return "Vitne kontaktinfo";
+                case "takseringBeløp":
+                case "takseringBelop":
+                    return "Taksering belop";
+                case "utbetaltErstatningsBeløp":
+                case "utbetaltErstatningsBelop":
+                    return "Utbetalt erstatningsbelop";
+                case "kobletHusAdresse":
+                    return "Koblet husadresse";
+                case "kobletBaatRegistreringsnummer":
+                    return "Koblet baat regnr";
+                case "kobletBilRegistreringsnummer":
+                    return "Koblet bil regnr";
                 default:
                     return this.humanizeLabelKey(var1);
             }
@@ -377,5 +397,19 @@ public final class SnapshotFormatter {
             char var10000 = Character.toUpperCase(var2.charAt(0));
             return var10000 + var2.substring(1);
         }
+    }
+
+    /**
+     * Normalizes legacy single-line key labels to user-friendly display labels.
+     *
+     * @param var1 one legacy line
+     * @return normalized line for display
+     */
+    private String normalizeLegacyDisplayLine(String var1) {
+        return var1.replaceFirst("^kunderNr:", "Kundenummer:")
+                .replaceFirst("^kundeNr:", "Kundenummer:")
+                .replaceFirst("^fakturaAdresse:", "Fakturaadresse:")
+                .replaceFirst("^belopB:", "Belop bygg:")
+                .replaceFirst("^belopI:", "Belop innbo:");
     }
 }

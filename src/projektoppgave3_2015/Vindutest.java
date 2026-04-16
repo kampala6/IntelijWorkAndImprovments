@@ -1160,7 +1160,7 @@ public final class Vindutest extends JFrame {
         if (!this.hasMissingRequiredFields("Du må fylle ut navn og adresse", this.navnFelt, this.adresseFelt)) {
             Kunde var3 = new Kunde(var1, var2, null);
             this.lister.leggTilKunde(var3);
-            this.utskrift.setText("Kunde lagt til:\n" + var3);
+            this.utskrift.setText("Kunde lagt til:\n" + this.formatObjectForDisplay(var3));
             this.kundeNrFelt.setText(String.valueOf(var3.getKundeNr()));
             this.bilKundeFelt.setText(String.valueOf(var3.getKundeNr()));
             this.husKundeFelt.setText(String.valueOf(var3.getKundeNr()));
@@ -1180,17 +1180,17 @@ public final class Vindutest extends JFrame {
             Kunde var2 = this.lister.finnKunder(var1);
             StringBuilder output = new StringBuilder();
             if (var2 == null) {
-                output.append("═════════════════════════════════════════\n");
-                output.append("⚠ KUNDE IKKE FUNNET\n");
-                output.append("═════════════════════════════════════════\n\n");
+                output.append("========================================\n");
+                output.append("KUNDE IKKE FUNNET\n");
+                output.append("========================================\n\n");
                 output.append("Kundenummer ").append(var1).append(" finnes ikke i systemet.\n");
                 output.append("Vennligst sjekk nummeret og prøv igjen.\n");
             } else {
-                output.append("═════════════════════════════════════════\n");
-                output.append("        KUNDEDETALJER\n");
-                output.append("═════════════════════════════════════════\n\n");
-                output.append(var2).append("\n\n");
-                output.append("═════════════════════════════════════════\n");
+                output.append("========================================\n");
+                output.append("KUNDEDETALJER\n");
+                output.append("========================================\n\n");
+                output.append(this.formatObjectForDisplay(var2)).append("\n\n");
+                output.append("========================================\n");
             }
             this.utskrift.setText(output.toString());
         }
@@ -1427,7 +1427,7 @@ public final class Vindutest extends JFrame {
                         this.melding("Kunne ikke registrere skademelding");
                     } else {
                         this.refreshSkadeCountBadge();
-                        this.utskrift.setText("Skademelding registrert:\n" + var10);
+                        this.utskrift.setText("Skademelding registrert:\n" + this.formatObjectForDisplay(var10));
                         this.clearSkadeFields();
                     }
                 }
@@ -1441,26 +1441,26 @@ public final class Vindutest extends JFrame {
     private void visSkadeMeldinger() {
         this.refreshSkadeCountBadge();
         StringBuilder formattedOutput = new StringBuilder();
-        formattedOutput.append("═════════════════════════════════════════\n");
-        formattedOutput.append("        SKADEMELDINGER - OVERSIKT\n");
-        formattedOutput.append("═════════════════════════════════════════\n\n");
+        formattedOutput.append("========================================\n");
+        formattedOutput.append("SKADEMELDINGER - OVERSIKT\n");
+        formattedOutput.append("========================================\n\n");
 
         java.util.Set<SkadeMelding> skader = this.lister.getSkadeMeldinger();
 
         if (skader.isEmpty()) {
-            formattedOutput.append("⚠ Ingen skademeldinger registrert i systemet.\n");
+            formattedOutput.append("Ingen skademeldinger registrert i systemet.\n");
         } else {
             int count = 0;
             for (SkadeMelding skade : skader) {
                 count++;
-                formattedOutput.append("─────────────────────────────────────────\n");
+                formattedOutput.append("----------------------------------------\n");
                 formattedOutput.append("Skademelding #").append(count).append(":\n");
-                formattedOutput.append(skade).append("\n");
-                formattedOutput.append("─────────────────────────────────────────\n\n");
+                formattedOutput.append(this.formatObjectForDisplay(skade)).append("\n");
+                formattedOutput.append("----------------------------------------\n\n");
             }
-            formattedOutput.append("═════════════════════════════════════════\n");
+            formattedOutput.append("========================================\n");
             formattedOutput.append("Total: ").append(count).append(" skademeldinger registrert\n");
-            formattedOutput.append("═════════════════════════════════════════\n");
+            formattedOutput.append("========================================\n");
         }
 
         this.utskrift.setText(formattedOutput.toString());
@@ -1602,7 +1602,7 @@ public final class Vindutest extends JFrame {
      * @return formatted output text including age information
      */
     private String formatForsikringMedAlder(String var1, Forsikring var2) {
-        return var1 + ":\n" + var2 + "\nAlder: " + var2.age() + " år";
+        return var1 + ":\n" + this.formatObjectForDisplay(var2) + "\nAlder: " + var2.age() + " år";
     }
 
     /**
@@ -1614,29 +1614,40 @@ public final class Vindutest extends JFrame {
      */
     private String formatForsikringListeMedAlder(String var1, Iterable<? extends Forsikring> var2) {
         StringBuilder var3 = new StringBuilder();
-        var3.append("═════════════════════════════════════════\n");
-        var3.append("   ").append(var1.toUpperCase()).append(" - OVERSIKT\n");
-        var3.append("═════════════════════════════════════════\n\n");
+        var3.append("========================================\n");
+        var3.append(var1.toUpperCase()).append(" - OVERSIKT\n");
+        var3.append("========================================\n\n");
 
         int count = 0;
         for(Forsikring var5 : var2) {
             count++;
-            var3.append("─────────────────────────────────────────\n");
+            var3.append("----------------------------------------\n");
             var3.append("Forsikring #").append(count).append(":\n");
-            var3.append(var5).append("\n");
+            var3.append(this.formatObjectForDisplay(var5)).append("\n");
             var3.append("Alder: ").append(var5.age()).append(" år\n");
-            var3.append("─────────────────────────────────────────\n\n");
+            var3.append("----------------------------------------\n\n");
         }
 
         if (count == 0) {
-            var3.append("⚠ Ingen ").append(var1.toLowerCase()).append(" registrert i systemet.\n");
+            var3.append("Ingen ").append(var1.toLowerCase()).append(" registrert i systemet.\n");
         } else {
-            var3.append("═════════════════════════════════════════\n");
+            var3.append("========================================\n");
             var3.append("Total: ").append(count).append(" ").append(var1.toLowerCase()).append(" registrert\n");
-            var3.append("═════════════════════════════════════════\n");
+            var3.append("========================================\n");
         }
 
         return var3.toString();
+    }
+
+    /**
+     * Converts a domain object into readable multiline text without raw brace formatting.
+     *
+     * @param var1 source object
+     * @return display-friendly text
+     */
+    private String formatObjectForDisplay(Object var1) {
+        String var2 = this.snapshotFormatter.formatSectionEntries(String.valueOf(var1));
+        return var2.isEmpty() ? String.valueOf(var1) : var2;
     }
 
     /**
