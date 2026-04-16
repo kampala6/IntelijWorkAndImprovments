@@ -1,840 +1,744 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
-/**
- *
- * @author lungamajola
- */
+import java.io.Serial;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 import javax.swing.UIManager.LookAndFeelInfo;
-
 import projektoppgave3_2015.*;
 
-public final class Runtime extends JFrame
-{
+public final class Runtime extends JFrame {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    Lister lister = new Lister();
-    private Kunde kundeliste;
+    private final Lister lister = new Lister();
 
-    JTabbedPane tabbedPane = new JTabbedPane();
-    JButton view = new JButton("view");
-    JButton save = new JButton("save");
-    JButton addNew = new JButton("Add New");
-    JButton exit = new JButton("Exit Application");
+    private final JTabbedPane tabbedPane = new JTabbedPane();
 
-    ImageIcon icon = createImageIcon("\"images/middle.gif\"");
-	 private JComboBox<Bilforsikring.BilType> bilTypeCombo;
+    // ── Kunde tab ─────────────────────────────────────────────────────────────
+    JTextField Navnfelt    = new JTextField();
+    JTextArea  Adressefelt = new JTextArea(3, 15);
+    JButton    regKunde    = new JButton("Registrer Kunde");
+    JButton    exitKunde   = new JButton("Exit");
 
-    JPanel displayBilForsikiringPanel = new JPanel();
-    JPanel leggcont1opmeg = new JPanel(new BorderLayout());
-    JPanel leggcont1opmeg1 = new JPanel(new BorderLayout());
-    JPanel leggcont1opmeg2 = new JPanel(new BorderLayout());
-    JPanel leggcont1opmeg3 = new JPanel(new BorderLayout());
-    JPanel leggcont1opmeg4 = new JPanel(new BorderLayout());
-    JPanel displayBaaForsikiringpPanel = new JPanel();
-    JPanel displayHusogInnboForsikiringpPanel = new JPanel();
-    JPanel displayFriTidsForsikiringpPanel = new JPanel();
-    JPanel displayReiseForsikiringpPanel = new JPanel();
-    JPanel displayKundePanel = new JPanel();
+    private DefaultTableModel kundeModel;
+    private JTable            kundeTable;
 
-    JPanel displayText = new JPanel((new GridLayout(10, 10)));
-    JPanel displayTextFri = new JPanel((new GridLayout(10, 10)));
-    JPanel displaytextHus = new JPanel((new GridLayout(10, 10)));
+    // ── Bil tab ───────────────────────────────────────────────────────────────
+    JTextField KundeNrfeltb    = new JTextField("12345");
+    JTextField biltypefelt     = new JTextField("Sedan");
+    JTextField regarfelt       = new JTextField("2023");
+    JTextField regnrfelt       = new JTextField("ABC123");
+    JTextField kjorelengdeFelt = new JTextField("5000");
+    JTextField bonusfelt       = new JTextField("0.0");
+    JTextField modellfelt      = new JTextField("2023");
+    JTextField lengdefelt1     = new JTextField("0");
+    JComboBox<String> bilTypeCombo = new JComboBox<>(new String[]{"Sedan","SUV","Kombi","Coupe","Pickup"});
 
-    JPanel displayButton = new JPanel();
-    JPanel displayButton1 = new JPanel();
-    JPanel displayButton2 = new JPanel();
-    JPanel displayButton3 = new JPanel();
-    JPanel displayButton4 = new JPanel();
-    JPanel displayButton5 = new JPanel();
+    JButton addBilBtn  = new JButton("Add New");
+    JButton saveBilBtn = new JButton("Save");
+    JButton viewBilBtn = new JButton("View");
+    JButton exitBilBtn = new JButton("Exit");
 
-    JPanel displayContent = new JPanel((new GridLayout(10, 5)));
-     JPanel displayContent1 = new JPanel((new GridLayout(7, 2)));
-    JPanel displayContent6 = new JPanel((new GridLayout(10, 5)));
-    JPanel displayContent1b = new JPanel((new GridLayout(7, 5)));
-     JPanel displayContent1c = new JPanel((new FlowLayout()));
-    JPanel displayContent2 = new JPanel((new GridLayout(10, 5)));
-    JPanel displayContent3 = new JPanel((new GridLayout(10, 5)));
-    JPanel displayContent4 = new JPanel((new GridLayout(10, 5)));
-    JPanel displayContent5 = new JPanel((new GridLayout(10, 10)));
+    private DefaultTableModel bilModel;
+    private JTable            bilTable;
 
-    JPanel displayTable = new JPanel(new GridLayout(2, 2));
-    JPanel displayTable1 = new JPanel(new GridLayout(2, 2));
-    JPanel displayTable2 = new JPanel(new GridLayout(2, 2));
-    JPanel displayTable3 = new JPanel(new GridLayout(2, 2));
-    JPanel displayTable4 = new JPanel(new GridLayout(2, 2));
-    JPanel displayTable5 = new JPanel(new GridLayout(4, 4));
+    // ── Baat tab ──────────────────────────────────────────────────────────────
+    JTextField kunderNrfelt1  = new JTextField("12345");
+    JTextField regnumfelt     = new JTextField("B001");
+    JTextField baatypefelt    = new JTextField("Seilbåt");
+    JTextField modellfelt1    = new JTextField("Model X");
+    JTextField lengdefelt     = new JTextField("8");
+    JTextField arsmodellFelt  = new JTextField("2022");
+    JTextField motorstyrkfelt = new JTextField("50");
+    JTextField motortypefelt  = new JTextField("Diesel");
+    JTextField bonusfelf2     = new JTextField("0.0");
 
-    JTextField KundeNrfeltb = new JTextField();
-    JTextField biltypefelt = new JTextField();
-    JTextField regarfelt = new JTextField();
-    JTextField regnrfelt = new JTextField();
-    JTextField kjørelengdefelt = new JTextField();
-    JTextField bonusfelt = new JTextField();
-    JTextField modellfelt = new JTextField();
-    JTextField kunderNrfelf = new JTextField();
-    JButton view1 = new JButton("view");
-    JButton save1 = new JButton("save");
-    JButton addNew1 = new JButton("Add New");
-    JButton exit1 = new JButton("Exit Application");
+    JButton addBaatBtn  = new JButton("Add New");
+    JButton saveBaatBtn = new JButton("Save");
+    JButton viewBaatBtn = new JButton("View");
+    JButton exitBaatBtn = new JButton("Exit");
 
-    // JtextField 
-    JTextArea utskrift = new JTextArea(20, 20);
-    JTextArea outputbill = new JTextArea(20, 20);
-    JTextArea utskriftbaat = new JTextArea(20, 20);
-    JTextArea outputfrihus = new JTextArea(20, 20);
-    JTextArea outputReise = new JTextArea(20, 20);
-    JTextArea outputhus = new JTextArea(20, 20);
+    private DefaultTableModel baatModel;
+    private JTable            baatTable;
 
-    JTextField regnumfelt = new JTextField();
-    JTextField baatypefelt = new JTextField();
-    JTextField modellfelt1 = new JTextField();
-    JTextField lengdefelt = new JTextField();
-    JTextField årsmodellfelt = new JTextField();
-    JTextField motorstyrkfelt = new JTextField();
-    JTextField motortypefelt = new JTextField();
-    JTextField bonusfelf2 = new JTextField();
-    JTextField kunderNrfelt1 = new JTextField();
-	JTextField BilregNumfelt = new JTextField();
-	JTextField lengdefelt1 = new JTextField();
+    // ── Hus tab ───────────────────────────────────────────────────────────────
+    JTextField husKundeNrFelt   = new JTextField("0");
+    JTextField husAdresseFelt   = new JTextField("Eksempel gate 1");
+    JTextField husBoligtypeFelt = new JTextField("Enebolig");
+    JTextField husMaterialFelt  = new JTextField("Tre");
+    JTextField husStandardFelt  = new JTextField("Standard");
+    JTextField husByggeaarFelt  = new JTextField("1995");
+    JTextField husKvmFelt       = new JTextField("150");
+    JTextField husBelopBFelt    = new JTextField("5000");
+    JTextField husBelopIFelt    = new JTextField("0");
 
+    JButton addHusBtn  = new JButton("Add New");
+    JButton saveHusBtn = new JButton("Save");
+    JButton viewHusBtn = new JButton("View");
+    JButton exitHusBtn = new JButton("Exit");
 
-        //JTextfield båt
+    private DefaultTableModel husModel;
+    private JTable            husTable;
 
-    JTextArea BoligenAdress = new JTextArea();
-    ;
-    JTextArea Boligtype = new JTextArea();
-    JTextArea Byggematerial = new JTextArea();
-    JTextArea standard = new JTextArea();
-    JTextArea Byggeaar = new JTextArea();
-    JTextArea AntallKvardratmeter = new JTextArea();
-    JTextArea BelopB = new JTextArea();
-    JTextArea Bounus = new JTextArea();
+    // ── Fritids tab ───────────────────────────────────────────────────────────
+    JTextField friAdresseFelt   = new JTextField("Hytte adresse 1");
+    JTextField friBoligtypeFelt = new JTextField("Hytte");
+    JTextField friMaterialFelt  = new JTextField("Tre");
+    JTextField friStandardFelt  = new JTextField("Enkel");
+    JTextField friByggeaarFelt  = new JTextField("2000");
+    JTextField friKvmFelt       = new JTextField("80");
+    JTextField friBelopBFelt    = new JTextField("3000");
+    JTextField friBelopIFelt    = new JTextField("3000");
+    JTextField friBonusFelt     = new JTextField("0.0");
 
-    JButton view2 = new JButton("view");
-    JButton save2 = new JButton("save");
-    JButton addNew2 = new JButton("Add New");
-    JButton exit2 = new JButton("Exit Application");
-    JButton regKunde = new JButton("regkunde");
+    JButton addFriBtn  = new JButton("Add New");
+    JButton saveFriBtn = new JButton("Save");
+    JButton viewFriBtn = new JButton("View");
+    JButton exitFriBtn = new JButton("Exit");
 
-    JTextField Navnfelt = new JTextField();
-    JTextArea Adressefelt = new JTextArea();
-    JButton eixt4 = new JButton("Exit Application");
+    private DefaultTableModel fritidsModel;
+    private JTable            fritidsTable;
 
-    JTextArea BoligenAdress1 = new JTextArea();
-    JTextArea BoligType1 = new JTextArea();
-    JTextArea Byggematerial1 = new JTextArea();
-    JTextArea Standerd1 = new JTextArea();
-    JTextArea Byggeaar1 = new JTextArea();
-    JTextArea AntallKvadrataMeter1 = new JTextArea();
-    JTextArea BelopB1 = new JTextArea();
-    JTextArea Bounus1 = new JTextArea();
+    // ── Reise tab ─────────────────────────────────────────────────────────────
+    JTextField reiseKundeNrFelt = new JTextField();
+    JTextField reiseOmradeFelt  = new JTextField();
+    JTextField reiseSumFelt     = new JTextField();
+    JTextField reiseBonusFelt   = new JTextField();
 
-    JButton view3 = new JButton("view");
-    JButton save3 = new JButton("save");
-    JButton addNew3 = new JButton("Add New");
-    JButton exit3 = new JButton("Exit Application");
+    JButton addReiseBtn  = new JButton("Add New");
+    JButton saveReiseBtn = new JButton("Save");
+    JButton viewReiseBtn = new JButton("View");
+    JButton exitReiseBtn = new JButton("Exit");
 
-    @Override
-    public void pack()
-    {
-        super.pack(); //To change body of generated methods, choose Tools | Templates.
-    }
+    private DefaultTableModel reiseModel;
+    private JTable            reiseTable;
 
-    public static void main(String[] args)
-    {
-        try
-        {
-            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+    // ─────────────────────────────────────────────────────────────────────────
+
+    public static void main(String[] args) {
+        try {
+            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e)
-        {
-
-            try
-            {
-                UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex)
-            {
-
-            }
+        } catch (Exception e) {
+            try { UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName()); }
+            catch (Exception ignored) {}
         }
-
-        Runtime mainFrame = new Runtime();
-        mainFrame.setLocationRelativeTo(null);
-        mainFrame.setVisible(true);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        Runtime frame = new Runtime();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public Runtime()
-    {
+    public Runtime() {
+        setTitle("Insurance");
+        setSize(1100, 600);
 
-        setTitle(" Insurance ");
-        setSize(1000, 500);
+        buildKundeTab();
+        buildBilTab();
+        buildBaatTab();
+        buildHusTab();
+        buildFritidsTab();
+        buildReiseTab();
 
-        // Create the tab pages
-        BilForsikiringTable();
-        BaatForsikiringTable();
-        ReiseForsikiringTable();
-        HusinnBoForsikringTable();
-        fritidsForsikiringTable();
-        KunderReg();
+        JPanel top = new JPanel(new GridLayout(1, 1));
+        getContentPane().add(top);
+        top.add(tabbedPane);
 
-        JPanel topPanel = new JPanel();
-        topPanel.setLayout(new GridLayout(1, 3));
-        getContentPane().add(topPanel);
-        topPanel.add(tabbedPane, BorderLayout.CENTER);
-
-        // Create tabs in tabbedPane
-        tabbedPane.addTab("BaatForsikiring ", icon, displayBaaForsikiringpPanel,
-                "Allows you to view or Enter Data into the Baat Database");
-
-        tabbedPane.addTab("BilForsikirings ", icon, displayBilForsikiringPanel,
-                "Allows you to view or Enter Data into the Bil Database");
-
-        tabbedPane.addTab("fritidsforsikiring ", icon, displayFriTidsForsikiringpPanel,
-                "Allows you to view or Enter Data into the Fritids Database");
-
-        tabbedPane.addTab("husogInnboForsikiring ", icon, displayHusogInnboForsikiringpPanel,
-                "Allows you to view or Enter Data into the HusogInnbo Database");
-
-        tabbedPane.addTab("Reise ", icon, displayReiseForsikiringpPanel,
-                "Allows you to view or Enter Data into the Reise Database");
-        tabbedPane.addTab("Kunder Database", icon, displayKundePanel,
-                "Allows you to view or Enter Data into the Reise Database");
-
-        //Enable scrolling in tabs.
+        tabbedPane.addTab("Kunder",       null, buildKundePanel(),   "Kunder");
+        tabbedPane.addTab("Bil",          null, buildBilPanel(),     "Bilforsikring");
+        tabbedPane.addTab("Båt",          null, buildBaatPanel(),    "Båtforsikring");
+        tabbedPane.addTab("Hus & Innbo",  null, buildHusPanel(),     "Hus og innbo");
+        tabbedPane.addTab("Fritidsbolig", null, buildFritidsPanel(), "Fritidsbolig");
+        tabbedPane.addTab("Reise",        null, buildReisePanel(),   "Reiseforsikring");
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-        // pack();
     }
 
-    public static ImageIcon createImageIcon(String path)
-    {
+    // ── Generic helpers ───────────────────────────────────────────────────────
 
-        java.net.URL imgURL = Runtime.class.getResource(path);
-        if (imgURL != null)
-        {
-            return new ImageIcon(imgURL);
+    private void melding(String s) {
+        JOptionPane.showMessageDialog(this, s, "Feil", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void bind(JButton button, Runnable action) {
+        button.addActionListener(_ -> action.run());
+    }
+
+    private void bindExit(JButton button) {
+        bind(button, () -> System.exit(0));
+    }
+
+    private JTable makeTable(DefaultTableModel model) {
+        JTable t = new JTable(model) {
+            public boolean isCellEditable(int r, int c) { return false; }
+        };
+        t.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        t.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        t.getTableHeader().setReorderingAllowed(false);
+        t.setRowHeight(22);
+        return t;
+    }
+
+    private JScrollPane scroll(JTable t) { return new JScrollPane(t); }
+
+    private JPanel formPanel(Object[][] rows) {
+        JPanel p = new JPanel(new GridBagLayout());
+        GridBagConstraints lc = new GridBagConstraints();
+        lc.insets = new Insets(4,6,4,4); lc.anchor = GridBagConstraints.WEST;
+        GridBagConstraints fc = new GridBagConstraints();
+        fc.insets = new Insets(4,4,4,6); fc.fill = GridBagConstraints.HORIZONTAL; fc.weightx = 1.0;
+        for (int i = 0; i < rows.length; i++) {
+            lc.gridx = 0; lc.gridy = i;
+            fc.gridx = 1; fc.gridy = i;
+            p.add(new JLabel((String) rows[i][0]), lc);
+            p.add((JComponent) rows[i][1], fc);
         }
-        else
-        {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
+        return p;
     }
 
-    private void melding(String s)
-    {
+    private void openDetailDialog(String title, String[] labels, JTextField[] fields,
+                                   Runnable onSave, Runnable onDelete) {
+        JDialog dlg = new JDialog(this, title, true);
+        dlg.setLayout(new BorderLayout(8, 8));
+        Object[][] rows = new Object[labels.length][2];
+        for (int i = 0; i < labels.length; i++) rows[i] = new Object[]{labels[i], fields[i]};
+        dlg.add(formPanel(rows), BorderLayout.CENTER);
 
-        JOptionPane.showMessageDialog(null, s, "Feil", JOptionPane.ERROR_MESSAGE);
+        JPanel btns = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton saveBtn   = new JButton("Lagre endringer");
+        JButton deleteBtn = new JButton("Slett");
+        JButton closeBtn  = new JButton("Lukk");
+        deleteBtn.setForeground(Color.RED);
+        btns.add(saveBtn); btns.add(deleteBtn); btns.add(closeBtn);
+        dlg.add(btns, BorderLayout.SOUTH);
 
-    }
-
-    private void KunderReg()
-    {
-
-        displayKundePanel.setLayout(new BorderLayout());
-        //displayKundePanel.add(displayContent5 ,BorderLayout.WEST);
-        displayKundePanel.add(displayButton5, BorderLayout.SOUTH);
-        displayKundePanel.add(displayTable5, BorderLayout.NORTH);
-
-        displayContent5.add(new JLabel("Kunde Navn"));
-        displayContent5.add(Navnfelt);
-        displayContent5.add((new JLabel("Adresse")));
-        displayContent5.add(Adressefelt);
-
-        displayButton5.add(regKunde);
-        displayButton5.add(eixt4);
-       // utskrift = new JTextArea(10, 5);
-        // displayText.add(utskrift,BorderLayout.EAST);
-        displayKundePanel.add(displayContent5, BorderLayout.CENTER);
-        displayKundePanel.add(utskrift, BorderLayout.EAST);
-
-        regKunde.addActionListener((ActionEvent e) ->
-        {
-            if (Navnfelt.getText().equals("") && Adressefelt.getText().equals(""))
-            {
-
-                melding("Du må fylle ut navnfelt og adresefelt");
-                return;
+        bind(saveBtn, () -> {
+            if (onSave != null) {
+                onSave.run();
             }
-            String navn = Navnfelt.getText();
-            String adr = Adressefelt.getText();
+            dlg.dispose();
+        });
+        bind(deleteBtn, () -> {
+            int c = JOptionPane.showConfirmDialog(dlg, "Er du sikker på at du vil slette?",
+                    "Bekreft sletting", JOptionPane.YES_NO_OPTION);
+            if (c == JOptionPane.YES_OPTION) { if (onDelete != null) onDelete.run(); dlg.dispose(); }
+        });
+        bind(closeBtn, dlg::dispose);
+
+        dlg.pack();
+        dlg.setMinimumSize(new Dimension(440, 200));
+        dlg.setLocationRelativeTo(this);
+        dlg.setVisible(true);
+    }
+
+    private JLabel hintLabel() {
+        JLabel l = new JLabel("Dobbeltklikk på en rad for å se / redigere / slette");
+        l.setFont(l.getFont().deriveFont(Font.ITALIC, 11f));
+        return l;
+    }
+
+    // ── KUNDE ─────────────────────────────────────────────────────────────────
+
+    private void buildKundeTab() {
+        kundeModel = new DefaultTableModel(new String[]{"KundeNr","Navn","Adresse","Dato"}, 0);
+        kundeTable = makeTable(kundeModel);
+        kundeTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() != 2) return;
+                int row = kundeTable.getSelectedRow();
+                if (row < 0) return;
+                int knr = Integer.parseInt(kundeModel.getValueAt(row, 0).toString());
+                Kunde k = lister.finnKunder(knr);
+                if (k == null) return;
+                JTextField fNr   = new JTextField(String.valueOf(k.getKundeNr())); fNr.setEditable(false);
+                JTextField fNavn = new JTextField(k.getNavn());
+                JTextField fAdr  = new JTextField(k.getFakturaAdresse());
+                openDetailDialog("Kundedetaljer – " + k.getNavn(),
+                    new String[]{"KundeNr","Navn","Adresse"},
+                    new JTextField[]{fNr, fNavn, fAdr},
+                    () -> { k.setNavn(fNavn.getText()); k.setFakturaAdresse(fAdr.getText()); refreshKundeTable(); },
+                    () -> { lister.fjernKunde(knr); refreshKundeTable(); });
+            }
+        });
+    }
+
+    private void refreshKundeTable() {
+        kundeModel.setRowCount(0);
+        for (Kunde k : lister.getKundeListe())
+            kundeModel.addRow(new Object[]{k.getKundeNr(), k.getNavn(), k.getFakturaAdresse(), k.getDato()});
+    }
+
+    private JPanel buildKundePanel() {
+        JPanel form = formPanel(new Object[][]{
+            {"Navn",    Navnfelt},
+            {"Adresse", new JScrollPane(Adressefelt)}
+        });
+        JPanel btns = new JPanel(new FlowLayout());
+        btns.add(regKunde); btns.add(exitKunde);
+        JPanel left = new JPanel(new BorderLayout());
+        left.setBorder(BorderFactory.createTitledBorder("Ny kunde"));
+        left.add(form, BorderLayout.CENTER); left.add(btns, BorderLayout.SOUTH);
+        left.setPreferredSize(new Dimension(280, 0));
+        JPanel main = new JPanel(new BorderLayout(8, 0));
+        main.add(left, BorderLayout.WEST);
+        main.add(scroll(kundeTable), BorderLayout.CENTER);
+        main.add(hintLabel(), BorderLayout.SOUTH);
+        main.setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
+        bind(regKunde, () -> {
+            String navn = Navnfelt.getText().trim();
+            String adr  = Adressefelt.getText().trim();
+            if (navn.isEmpty() || adr.isEmpty()) { melding("Fyll ut navn og adresse."); return; }
             Kunde k = new Kunde(navn, adr, null);
-            boolean ok = lister.leggTilKunde(k);
-            if (ok)
-            {
-                //melding("ok worked");
-                utskrift.setText(lister.viskunde());
-                 // Kundefeltk.setText(Integer.toString(k.getKundeNr()));//her setter vi den nye kunder i felter till alle forsikiring objecker vi har på vindu
-                // KundeNrfelt3.setText(Integer.toString(k.getKundeNr()));//her setter vi den nye kunder i felter till alle forsikiring objecker vi har på vindu
-                kunderNrfelt1.setText(Integer.toString(k.getKundeNr()));//her setter vi den nye kunder i felter till alle forsikiring objecker vi har på vindu
-                // KundeNrfeltb.setText(Integer.toString(k.getKundeNr()));//her setter vi den nye kunder i felter till alle forsikiring objecker vi har på vindu
-                // kunderNrfelt2.setText(Integer.toString(k.getKundeNr()));//her setter vi den nye kunder i felter till alle forsikiring objecker vi har på vindu
-                //utskrift.append(k.toString());
-            }
-            else
-            {
-                utskrift.setText("Det gikk ikke");
-
-            }
+            if (lister.leggTilKunde(k)) {
+                kunderNrfelt1.setText(String.valueOf(k.getKundeNr()));
+                refreshKundeTable();
+                Navnfelt.setText(""); Adressefelt.setText("");
+            } else melding("Kunne ikke legge til kunde.");
         });
-
-        eixt4.addActionListener((ActionEvent e) ->
-        {
-            System.exit(0);
-        });
-
+        bindExit(exitKunde);
+        return main;
     }
 
-    private void BilForsikiringTable()
-    {
-        displayBilForsikiringPanel.setLayout(new BorderLayout());
-       // displayBilForsikiringPanel.add(displayContent1,BorderLayout.WEST);
-        //  displayBilForsikiringPanel.add(displayContent1, BorderLayout.EAST);
-        displayBilForsikiringPanel.add(leggcont1opmeg, BorderLayout.CENTER);
-        displayBilForsikiringPanel.add(displayButton1, BorderLayout.SOUTH);
-        displayBilForsikiringPanel.add(displayTable1, BorderLayout.EAST);
-        //displayBilForsikiringPanel.add(displayText,BorderLayout.AFTER_LINE_ENDS);
-        // displayBilForsikiringPanel.add(displayText ,BorderLayout.)
+    // ── BIL ───────────────────────────────────────────────────────────────────
 
-         //displayTable1.add(new JTextArea(35,5));
-         displayContent1.add(new JLabel("kunder navn"));
-         KundeNrfeltb.setText("12345");
-         displayContent1.add(KundeNrfeltb);
-         displayContent1.add(new JLabel("Biltype"));
-         biltypefelt.setText("Sedan");
-         displayContent1.add(biltypefelt);
-         displayContent1.add(new JLabel("Registrerings År"));
-         regarfelt.setText("2023");
-         displayContent1.add(regarfelt);
-         displayContent1.add(new JLabel("Registrerings Nummer"));
-         regnrfelt.setText("ABC123");
-         displayContent1.add(regnrfelt);
-         displayContent1.add(new JLabel("Kjøre Lengde"));
-         kjørelengdefelt.setText("5000");
-         displayContent1.add(kjørelengdefelt);
-         displayContent1.add(new JLabel("Bonus"));
-         bonusfelt.setText("0.0");
-         displayContent1.add(bonusfelt);
-         displayContent1.add(new JLabel("Bil modell"));
-         modellfelt.setText("2023");
-         displayContent1.add(modellfelt);
-         displayContent1.add(new JLabel(""));
-       // displayContent1c.add(displayContent1);
-        //displayContent1c.add(displayContent1b);
-        //displayContent1c.setBorder(BorderFactory.createTitledBorder("Kunder"));
-
-        displayButton1.add(addNew);
-        displayButton1.add(save);
-        displayButton1.add(view);
-        displayButton1.add(exit);
-        leggcont1opmeg.add(displayContent1, BorderLayout.WEST);
-        leggcont1opmeg.add(outputbill, BorderLayout.CENTER);
-
-        addNew.addActionListener(new ActionListener()
-        {
-
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                String pattern = "[A-Za-z]{3}[0-9]{3}";//regex uttrykk
-				
-				
-					String modell = modellfelt.getText();
-					 //String kunder =  KundeNrfeltb.getText();
-					String bilttttype = biltypefelt.getText();
-					String  registerBil = BilregNumfelt.getText();
-
-                if (!(regnrfelt.getText().toUpperCase().matches(pattern)))
-                {
-
-                    JOptionPane.showMessageDialog(null, "Registreringsnummeret må \nbestå av 3 bokstaver og 3 tall\neks: CCC111", "FEIL INPUT", JOptionPane.ERROR_MESSAGE);
-
-                }//her skjeke vis det er en bil far forrige
-                else if (lister.finnBil(regnrfelt.getText().toUpperCase()) != null)
-                {
-
-                    JOptionPane.showMessageDialog(null, "En bil med samme registreringsnumer finnes fra før", "FEIL INPUT", JOptionPane.ERROR_MESSAGE);
-
-                }//retuner feil meling
-                else if (!(biltypefelt.getText().length() == 0 || modellfelt.getText().length() == 0
-                           || KundeNrfeltb.getText().length() == 0 || regnrfelt.getText().length() == 0))
-                {
-							int year = Integer.parseInt(regarfelt.getText());
-           
-						//  double bon = Double.parseDouble(bonusfelt.getText());
-						   int knr = Integer.parseInt(KundeNrfeltb.getText());
-						   String biltype = (String)bilTypeCombo.getSelectedItem();
-						   int md = Integer.parseInt(modellfelt.getText());
-						   int lengde = Integer.parseInt( lengdefelt1.getText());
-                  //  Bilforsikring bil = new Bilforsikring(KundeNrfeltb.getText().length(), null, lengde, year, lengde, biltypefelt.getText(), regnrfelt.getText(), bon,md);
-					      Bilforsikring bil = new Bilforsikring(null, knr, registerBil, biltype, modell,lengde, year, bilttttype,md,lengde);
-
-                    Kunde k = lister.finnKunder(knr);
-                    if (k != null)
-                    {
-                       // k.leggTilbil(bil);
-                        //k.setBil(bil);
-                    }
-                    //regnrfelt.setText(bil.getRegistetingsnummer());//setter string nummer i felt
-                    if (!(k == null))
-                    {
-                        outputbill.setText("fant ikke kunder i forsikring \n med KunderNummer: " + knr);
-                    }
-                    outputbill.setText(k.toString() + "\n“er registrert på " + "\n" + bil.toString());
-                }
-                else
-                {
-
-                    JOptionPane.showMessageDialog(null, "Du må fylle inn all informasjon om bil for å registrere.", "FEIL INPUT", JOptionPane.ERROR_MESSAGE);
-                }
+    private void buildBilTab() {
+        bilModel = new DefaultTableModel(
+            new String[]{"KundeNr","RegNr","Biltype","Modell","Årsmodell","MotorType","Lengde"}, 0);
+        bilTable = makeTable(bilModel);
+        bilTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() != 2) return;
+                int row = bilTable.getSelectedRow();
+                if (row < 0) return;
+                String regNr = bilModel.getValueAt(row, 1).toString();
+                Bilforsikring bil = null;
+                for (Bilforsikring b : lister.getBilForsikringsLIste())
+                    if (regNr.equals(b.getRegistreringsnummer())) { bil = b; break; }
+                if (bil == null) return;
+                final Bilforsikring fb = bil;
+                JTextField fKnr    = new JTextField(String.valueOf(fb.getKunder())); fKnr.setEditable(false);
+                JTextField fReg    = new JTextField(fb.getRegistreringsnummer());
+                JTextField fType   = new JTextField(fb.getBiltype());
+                JTextField fModell = new JTextField(fb.getModell());
+                JTextField fAr     = new JTextField(String.valueOf(fb.getÅrsmodell()));
+                JTextField fMotor  = new JTextField(fb.getMotortype());
+                JTextField fLengde = new JTextField(String.valueOf(fb.getLengde()));
+                openDetailDialog("Bilforsikring – " + regNr,
+                    new String[]{"KundeNr","RegNr","Biltype","Modell","Årsmodell","MotorType","Lengde"},
+                    new JTextField[]{fKnr, fReg, fType, fModell, fAr, fMotor, fLengde},
+                    () -> {
+                        fb.setRegistreringsnummer(fReg.getText()); fb.setBiltype(fType.getText());
+                        fb.setModell(fModell.getText()); fb.setMotortype(fMotor.getText());
+                        try { fb.setÅrsmodell(Integer.parseInt(fAr.getText())); } catch (NumberFormatException ignored) {}
+                        try { fb.setLengde(Integer.parseInt(fLengde.getText())); } catch (NumberFormatException ignored) {}
+                        refreshBilTable();
+                    },
+                    () -> { lister.getBilForsikringsLIste().remove(fb); refreshBilTable(); });
             }
         });
-
-        view.addActionListener((ActionEvent e) ->
-        {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        });
-        exit.addActionListener((ActionEvent e) ->
-        {
-            System.exit(0);
-        });
-
     }
 
-     private void BaatForsikiringTable()
-     {
+    private void refreshBilTable() {
+        bilModel.setRowCount(0);
+        for (Bilforsikring b : lister.getBilForsikringsLIste())
+            bilModel.addRow(new Object[]{b.getKunder(), b.getRegistreringsnummer(), b.getBiltype(),
+                b.getModell(), b.getÅrsmodell(), b.getMotortype(), b.getLengde()});
+    }
 
-         displayBaaForsikiringpPanel.setLayout(new BorderLayout());
-         displayBaaForsikiringpPanel.add(displayContent, BorderLayout.CENTER);
-         displayBaaForsikiringpPanel.add(displayButton, BorderLayout.SOUTH);
-         displayBaaForsikiringpPanel.add(displayTable, BorderLayout.NORTH);
+    private JPanel buildBilPanel() {
+        JPanel form = formPanel(new Object[][]{
+            {"KundeNr",     KundeNrfeltb}, {"Biltype", biltypefelt}, {"Reg.år", regarfelt},
+            {"Reg.nummer",  regnrfelt},    {"Kjorelengde", kjorelengdeFelt}, {"Bonus", bonusfelt},
+            {"Modell",      modellfelt},   {"Lengde", lengdefelt1}, {"Bil-kategori", bilTypeCombo}
+        });
+        JPanel btns = new JPanel(new FlowLayout());
+        btns.add(addBilBtn); btns.add(saveBilBtn); btns.add(viewBilBtn); btns.add(exitBilBtn);
+        JPanel left = new JPanel(new BorderLayout());
+        left.setBorder(BorderFactory.createTitledBorder("Ny bilforsikring"));
+        left.add(form, BorderLayout.CENTER); left.add(btns, BorderLayout.SOUTH);
+        left.setPreferredSize(new Dimension(320, 0));
+        JPanel main = new JPanel(new BorderLayout(8, 0));
+        main.add(left, BorderLayout.WEST);
+        main.add(scroll(bilTable), BorderLayout.CENTER);
+        main.add(hintLabel(), BorderLayout.SOUTH);
+        main.setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
+        String pattern = "[A-Za-z]{3}[0-9]{3}";
+        bind(addBilBtn, () -> {
+            String regNr = regnrfelt.getText().toUpperCase();
+            if (!regNr.matches(pattern)) { melding("RegNr: 3 bokstaver + 3 tall (eks: ABC123)"); return; }
+            if (lister.finnBil(regNr) != null) { melding("Bil med dette nummeret finnes allerede."); return; }
+            try {
+                int knr    = Integer.parseInt(KundeNrfeltb.getText());
+                int year   = Integer.parseInt(regarfelt.getText());
+                int lengde = Integer.parseInt(lengdefelt1.getText());
+                int md     = Integer.parseInt(modellfelt.getText());
+                String biltype = (String) bilTypeCombo.getSelectedItem();
+                Bilforsikring bil = new Bilforsikring(null, knr, regNr, biltype,
+                        modellfelt.getText(), lengde, year, biltypefelt.getText(), md, lengde);
+                lister.leggTilbilForsikring(bil);
+                refreshBilTable();
+            } catch (NumberFormatException ex) { melding("Gyldige tall kreves."); }
+        });
+        bind(viewBilBtn, this::refreshBilTable);
+        bind(saveBilBtn, () -> {
+            try { lister.skrivbilfil("lister.txt"); melding("Lagret!"); }
+            catch (Exception ex) { melding("Feil: " + ex.getMessage()); }
+        });
+        bindExit(exitBilBtn);
+        return main;
+    }
 
-          //displayBaaForsikiringpPanel.add(utsrift,BorderLayout.EAST);
-         displayContent.add(new JLabel("kunderNr"));
-         kunderNrfelt1.setText("12345");
-         displayContent.add(kunderNrfelt1);
+    // ── BAAT ──────────────────────────────────────────────────────────────────
 
-         displayContent.add(new JLabel("Registrerings Nummer"));
-         regnumfelt.setText("B001");
-         displayContent.add(regnumfelt);
+    private void buildBaatTab() {
+        baatModel = new DefaultTableModel(
+            new String[]{"KundeNr","RegNr","BåtType","Modell","Lengde","Årsmodell","MotorType","MotorStyrke","Bonus"}, 0);
+        baatTable = makeTable(baatModel);
+        baatTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() != 2) return;
+                int row = baatTable.getSelectedRow();
+                if (row < 0) return;
+                String regNr = baatModel.getValueAt(row, 1).toString();
+                BaatForsikring baat = null;
+                for (BaatForsikring b : lister.getBaatForsikringsliste())
+                    if (regNr.equals(b.getRegistreringsnummer())) { baat = b; break; }
+                if (baat == null) return;
+                final BaatForsikring fb = baat;
+                JTextField fKnr    = new JTextField(String.valueOf(fb.getKunder())); fKnr.setEditable(false);
+                JTextField fReg    = new JTextField(fb.getRegistreringsnummer());
+                JTextField fType   = new JTextField(fb.getBaattype());
+                JTextField fModell = new JTextField(fb.getModell());
+                JTextField fLengde = new JTextField(String.valueOf(fb.getLengde()));
+                JTextField fAr     = new JTextField(String.valueOf(fb.getÅrsmodell()));
+                JTextField fMotorT = new JTextField(fb.getMotortype());
+                JTextField fMotorS = new JTextField(String.valueOf(fb.getMotorstyrke()));
+                JTextField fBonus  = new JTextField(String.valueOf(fb.getBonus()));
+                openDetailDialog("Båtforsikring – " + regNr,
+                    new String[]{"KundeNr","RegNr","BåtType","Modell","Lengde","Årsmodell","MotorType","MotorStyrke","Bonus"},
+                    new JTextField[]{fKnr, fReg, fType, fModell, fLengde, fAr, fMotorT, fMotorS, fBonus},
+                    () -> {
+                        fb.setRegistreringsnummer(fReg.getText()); fb.setBaattype(fType.getText());
+                        fb.setModell(fModell.getText()); fb.setMotortype(fMotorT.getText());
+                        try { fb.setLengde(Integer.parseInt(fLengde.getText())); } catch (NumberFormatException ignored) {}
+                        try { fb.setÅrsmodell(Integer.parseInt(fAr.getText())); } catch (NumberFormatException ignored) {}
+                        try { fb.setMotorstyrke(Integer.parseInt(fMotorS.getText())); } catch (NumberFormatException ignored) {}
+                        try { fb.setBonus(Double.parseDouble(fBonus.getText())); } catch (NumberFormatException ignored) {}
+                        refreshBaatTable();
+                    },
+                    () -> { lister.getBaatForsikringsliste().remove(fb); refreshBaatTable(); });
+            }
+        });
+    }
 
-         displayContent.add(new JLabel("Båt Type"));
-         baatypefelt.setText("Seilbåt");
-         displayContent.add(baatypefelt);
+    private void refreshBaatTable() {
+        baatModel.setRowCount(0);
+        for (BaatForsikring b : lister.getBaatForsikringsliste())
+            baatModel.addRow(new Object[]{b.getKunder(), b.getRegistreringsnummer(), b.getBaattype(),
+                b.getModell(), b.getLengde(), b.getÅrsmodell(), b.getMotortype(), b.getMotorstyrke(), b.getBonus()});
+    }
 
-         displayContent.add(new JLabel("Båt modell"));
-         modellfelt1.setText("Model X");
-         displayContent.add(modellfelt1);
+    private JPanel buildBaatPanel() {
+        JPanel form = formPanel(new Object[][]{
+            {"KundeNr",     kunderNrfelt1}, {"Reg.nummer", regnumfelt}, {"BåtType", baatypefelt},
+            {"Modell",      modellfelt1},   {"Lengde", lengdefelt},     {"Arsmodell", arsmodellFelt},
+            {"MotorStyrke", motorstyrkfelt},{"MotorType", motortypefelt},{"Bonus", bonusfelf2}
+        });
+        JPanel btns = new JPanel(new FlowLayout());
+        btns.add(addBaatBtn); btns.add(saveBaatBtn); btns.add(viewBaatBtn); btns.add(exitBaatBtn);
+        JPanel left = new JPanel(new BorderLayout());
+        left.setBorder(BorderFactory.createTitledBorder("Ny båtforsikring"));
+        left.add(form, BorderLayout.CENTER); left.add(btns, BorderLayout.SOUTH);
+        left.setPreferredSize(new Dimension(310, 0));
+        JPanel main = new JPanel(new BorderLayout(8, 0));
+        main.add(left, BorderLayout.WEST);
+        main.add(scroll(baatTable), BorderLayout.CENTER);
+        main.add(hintLabel(), BorderLayout.SOUTH);
+        main.setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
+        bind(addBaatBtn, () -> {
+            if (kunderNrfelt1.getText().isEmpty() || regnumfelt.getText().isEmpty()) { melding("Fyll inn alle felt."); return; }
+            try {
+                int knr         = Integer.parseInt(kunderNrfelt1.getText());
+                int lengde      = Integer.parseInt(lengdefelt.getText());
+                int arsmodell   = Integer.parseInt(arsmodellFelt.getText());
+                int motorstyrke = Integer.parseInt(motorstyrkfelt.getText());
+                double bonus    = bonusfelf2.getText().isEmpty() ? 0.0 : Double.parseDouble(bonusfelf2.getText());
+                BaatForsikring baat = new BaatForsikring(null, regnumfelt.getText(), baatypefelt.getText(),
+                        modellfelt1.getText(), lengde, arsmodell, motortypefelt.getText(), motorstyrke, bonus, 4, 0.0);
+                baat.setKunder(knr);
+                lister.leggTilbaatForsikiring(baat);
+                refreshBaatTable();
+            } catch (NumberFormatException ex) { melding("Gyldige tall kreves."); }
+        });
+        bind(viewBaatBtn, this::refreshBaatTable);
+        bind(saveBaatBtn, () -> {
+            try { lister.skrivbilfil("lister.txt"); melding("Lagret!"); }
+            catch (Exception ex) { melding("Feil: " + ex.getMessage()); }
+        });
+        bindExit(exitBaatBtn);
+        return main;
+    }
 
-         displayContent.add(new JLabel("Båt Lengde"));
-         lengdefelt.setText("8");
-         displayContent.add(lengdefelt);
+    // ── HUS OG INNBO ──────────────────────────────────────────────────────────
 
-         displayContent.add(new JLabel("Båt Årsmodell"));
-         årsmodellfelt.setText("2022");
-         displayContent.add(årsmodellfelt);
+    private void buildHusTab() {
+        husModel = new DefaultTableModel(
+            new String[]{"Kunde","Adresse","Boligtype","Materiale","Standard","Byggeår","Kvm","BelopB","BelopI"}, 0);
+        husTable = makeTable(husModel);
+        husTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() != 2) return;
+                int row = husTable.getSelectedRow();
+                if (row < 0) return;
+                String adr = husModel.getValueAt(row, 1).toString();
+                Husoginnboforsikring hus = null;
+                for (Husoginnboforsikring h : lister.getHusoginnboforsikrings())
+                    if (adr.equals(h.getBoligensAdresse())) { hus = h; break; }
+                if (hus == null) return;
+                final Husoginnboforsikring fh = hus;
+                JTextField fKunde  = new JTextField(String.valueOf(fh.getKunde())); fKunde.setEditable(false);
+                JTextField fAdr    = new JTextField(fh.getBoligensAdresse());
+                JTextField fType   = new JTextField(fh.getBoligtype());
+                JTextField fMat    = new JTextField(fh.getByggemateriale());
+                JTextField fStd    = new JTextField(fh.getStandard());
+                JTextField fAr     = new JTextField(String.valueOf(fh.getByggeaar()));
+                JTextField fKvm    = new JTextField(String.valueOf(fh.getAntallKvadratmeter()));
+                JTextField fBelopB = new JTextField(String.valueOf(fh.getBelopB()));
+                JTextField fBelopI = new JTextField(String.valueOf(fh.getBelopI()));
+                openDetailDialog("Hus og innbo – " + adr,
+                    new String[]{"Kunde","Adresse","Boligtype","Materiale","Standard","Byggeår","Kvm","BelopB","BelopI"},
+                    new JTextField[]{fKunde, fAdr, fType, fMat, fStd, fAr, fKvm, fBelopB, fBelopI},
+                    () -> {
+                        fh.setBoligensAdresse(fAdr.getText()); fh.setBoligtype(fType.getText());
+                        fh.setByggemateriale(fMat.getText()); fh.setStandard(fStd.getText());
+                        try { fh.setByggeaar(Integer.parseInt(fAr.getText())); } catch (NumberFormatException ignored) {}
+                        try { fh.setBelopB(Integer.parseInt(fBelopB.getText())); } catch (NumberFormatException ignored) {}
+                        try { fh.setBelopI(Integer.parseInt(fBelopI.getText())); } catch (NumberFormatException ignored) {}
+                        refreshHusTable();
+                    },
+                    () -> { lister.fjernHus(adr); refreshHusTable(); });
+            }
+        });
+    }
 
-         displayContent.add(new JLabel("MotorStyrk"));
-         motorstyrkfelt.setText("50");
-         displayContent.add(motorstyrkfelt);
+    private void refreshHusTable() {
+        husModel.setRowCount(0);
+        for (Husoginnboforsikring h : lister.getHusoginnboforsikrings())
+            husModel.addRow(new Object[]{h.getKunde(), h.getBoligensAdresse(), h.getBoligtype(),
+                h.getByggemateriale(), h.getStandard(), h.getByggeaar(),
+                h.getAntallKvadratmeter(), h.getBelopB(), h.getBelopI()});
+    }
 
-         displayContent.add(new JLabel("Motor Type"));
-         motortypefelt.setText("Diesel");
-         displayContent.add(motortypefelt);
+    private JPanel buildHusPanel() {
+        JPanel form = formPanel(new Object[][]{
+            {"KundeNr",   husKundeNrFelt}, {"Adresse", husAdresseFelt},  {"Boligtype", husBoligtypeFelt},
+            {"Materiale", husMaterialFelt},{"Standard",husStandardFelt}, {"Byggeår", husByggeaarFelt},
+            {"Kvm",       husKvmFelt},     {"BelopB",  husBelopBFelt},   {"BelopI", husBelopIFelt}
+        });
+        JPanel btns = new JPanel(new FlowLayout());
+        btns.add(addHusBtn); btns.add(saveHusBtn); btns.add(viewHusBtn); btns.add(exitHusBtn);
+        JPanel left = new JPanel(new BorderLayout());
+        left.setBorder(BorderFactory.createTitledBorder("Ny hus og innbo forsikring"));
+        left.add(form, BorderLayout.CENTER); left.add(btns, BorderLayout.SOUTH);
+        left.setPreferredSize(new Dimension(310, 0));
+        JPanel main = new JPanel(new BorderLayout(8, 0));
+        main.add(left, BorderLayout.WEST);
+        main.add(scroll(husTable), BorderLayout.CENTER);
+        main.add(hintLabel(), BorderLayout.SOUTH);
+        main.setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
+        bind(addHusBtn, () -> {
+            try {
+                int kunde    = Integer.parseInt(husKundeNrFelt.getText());
+                int byggeaar = Integer.parseInt(husByggeaarFelt.getText());
+                int kvm      = Integer.parseInt(husKvmFelt.getText());
+                int belopB   = Integer.parseInt(husBelopBFelt.getText());
+                int belopI   = Integer.parseInt(husBelopIFelt.getText());
+                Husoginnboforsikring hus = new Husoginnboforsikring(kunde, husAdresseFelt.getText(),
+                        husBoligtypeFelt.getText(), null, husMaterialFelt.getText(),
+                        kvm, belopB, belopI, byggeaar, husStandardFelt.getText(), 2);
+                lister.getHusoginnboforsikrings().add(hus);
+                refreshHusTable();
+            } catch (NumberFormatException ex) { melding("Gyldige tall kreves."); }
+        });
+        bind(viewHusBtn, this::refreshHusTable);
+        bind(saveHusBtn, () -> {
+            try { lister.skrivbilfil("lister.txt"); melding("Lagret!"); }
+            catch (Exception ex) { melding("Feil: " + ex.getMessage()); }
+        });
+        bindExit(exitHusBtn);
+        return main;
+    }
 
-         displayContent.add(new JLabel("Bonus"));
-         bonusfelf2.setText("0.0");
-         displayContent.add(bonusfelf2);
+    // ── FRITIDSBOLIG ──────────────────────────────────────────────────────────
 
-         displayButton.add(addNew1);
-         displayButton.add(save1);
-         displayButton.add(view1);
-         displayButton.add(exit1);
+    private void buildFritidsTab() {
+        fritidsModel = new DefaultTableModel(
+            new String[]{"Adresse","Boligtype","Materiale","Standard","Byggeår","Kvm","BelopB","BelopI","Bonus"}, 0);
+        fritidsTable = makeTable(fritidsModel);
+        fritidsTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() != 2) return;
+                int row = fritidsTable.getSelectedRow();
+                if (row < 0) return;
+                String adr = fritidsModel.getValueAt(row, 0).toString();
+                FritidsboligForsikiring f = null;
+                for (FritidsboligForsikiring x : lister.getFritidsboligForsikirings())
+                    if (adr.equals(x.getBoligensAdresse())) { f = x; break; }
+                if (f == null) return;
+                final FritidsboligForsikiring ff = f;
+                JTextField fAdr    = new JTextField(ff.getBoligensAdresse());
+                JTextField fType   = new JTextField(ff.getBoligtype());
+                JTextField fMat    = new JTextField(ff.getByggemateriale());
+                JTextField fStd    = new JTextField(ff.getStandard());
+                JTextField fAr     = new JTextField(String.valueOf(ff.getByggeaar()));
+                JTextField fKvm    = new JTextField(String.valueOf(ff.getAntallKvadratmeter()));
+                JTextField fBelopB = new JTextField(String.valueOf(ff.getBelopB()));
+                JTextField fBelopI = new JTextField(String.valueOf(ff.getBelopI()));
+                JTextField fBonus  = new JTextField(String.valueOf(ff.getBonus()));
+                openDetailDialog("Fritidsbolig – " + adr,
+                    new String[]{"Adresse","Boligtype","Materiale","Standard","Byggeår","Kvm","BelopB","BelopI","Bonus"},
+                    new JTextField[]{fAdr, fType, fMat, fStd, fAr, fKvm, fBelopB, fBelopI, fBonus},
+                    () -> {
+                        ff.setBoligensAdresse(fAdr.getText()); ff.setBoligtype(fType.getText());
+                        ff.setByggemateriale(fMat.getText()); ff.setStandard(fStd.getText());
+                        try { ff.setByggeaar(Integer.parseInt(fAr.getText())); } catch (NumberFormatException ignored) {}
+                        try { ff.setBelopB(Integer.parseInt(fBelopB.getText())); } catch (NumberFormatException ignored) {}
+                        try { ff.setBelopI(Integer.parseInt(fBelopI.getText())); } catch (NumberFormatException ignored) {}
+                        try { ff.setBonus(Double.parseDouble(fBonus.getText())); } catch (NumberFormatException ignored) {}
+                        refreshFritidsTable();
+                    },
+                    () -> { lister.fjernfritids(adr); refreshFritidsTable(); });
+            }
+        });
+    }
 
-         displayBaaForsikiringpPanel.add(displayContent, BorderLayout.WEST);
-         displayBaaForsikiringpPanel.add(utskriftbaat, BorderLayout.CENTER);
+    private void refreshFritidsTable() {
+        fritidsModel.setRowCount(0);
+        for (FritidsboligForsikiring f : lister.getFritidsboligForsikirings())
+            fritidsModel.addRow(new Object[]{f.getBoligensAdresse(), f.getBoligtype(), f.getByggemateriale(),
+                f.getStandard(), f.getByggeaar(), f.getAntallKvadratmeter(),
+                f.getBelopB(), f.getBelopI(), f.getBonus()});
+    }
 
-         addNew1.addActionListener(new ActionListener()
-         {
-             @Override
-             public void actionPerformed(ActionEvent e)
-             {
-                 if (kunderNrfelt1.getText().isEmpty() || regnumfelt.getText().isEmpty() ||
-                     baatypefelt.getText().isEmpty() || modellfelt1.getText().isEmpty() ||
-                     lengdefelt.getText().isEmpty() || årsmodellfelt.getText().isEmpty() ||
-                     motorstyrkfelt.getText().isEmpty() || motortypefelt.getText().isEmpty())
-                 {
-                     melding("Du må fylle inn all informasjon om båt for å registrere.");
-                     return;
-                 }
-                 try
-                 {
-                     int kunderNr = Integer.parseInt(kunderNrfelt1.getText());
-                     String regNum = regnumfelt.getText();
-                     String baatType = baatypefelt.getText();
-                     String modell = modellfelt1.getText();
-                     int lengde = Integer.parseInt(lengdefelt.getText());
-                     int årsmodell = Integer.parseInt(årsmodellfelt.getText());
-                     String motortype = motortypefelt.getText();
-                     int motorstyrke = Integer.parseInt(motorstyrkfelt.getText());
-                     double bonus = bonusfelf2.getText().isEmpty() ? 0.0 : Double.parseDouble(bonusfelf2.getText());
+    private JPanel buildFritidsPanel() {
+        JPanel form = formPanel(new Object[][]{
+            {"Adresse",   friAdresseFelt},   {"Boligtype", friBoligtypeFelt}, {"Materiale", friMaterialFelt},
+            {"Standard",  friStandardFelt},  {"Byggeår",   friByggeaarFelt},  {"Kvm",       friKvmFelt},
+            {"BelopB",    friBelopBFelt},     {"BelopI",    friBelopIFelt},    {"Bonus",     friBonusFelt}
+        });
+        JPanel btns = new JPanel(new FlowLayout());
+        btns.add(addFriBtn); btns.add(saveFriBtn); btns.add(viewFriBtn); btns.add(exitFriBtn);
+        JPanel left = new JPanel(new BorderLayout());
+        left.setBorder(BorderFactory.createTitledBorder("Ny fritidsbolig forsikring"));
+        left.add(form, BorderLayout.CENTER); left.add(btns, BorderLayout.SOUTH);
+        left.setPreferredSize(new Dimension(310, 0));
+        JPanel main = new JPanel(new BorderLayout(8, 0));
+        main.add(left, BorderLayout.WEST);
+        main.add(scroll(fritidsTable), BorderLayout.CENTER);
+        main.add(hintLabel(), BorderLayout.SOUTH);
+        main.setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
+        bind(addFriBtn, () -> {
+            try {
+                int byggeaar = Integer.parseInt(friByggeaarFelt.getText());
+                int kvm      = Integer.parseInt(friKvmFelt.getText());
+                int belopB   = Integer.parseInt(friBelopBFelt.getText());
+                int belopI   = Integer.parseInt(friBelopIFelt.getText());
+                double bonus = friBonusFelt.getText().isEmpty() ? 0.0 : Double.parseDouble(friBonusFelt.getText());
+                FritidsboligForsikiring fri = new FritidsboligForsikiring(friAdresseFelt.getText(), null,
+                        friBoligtypeFelt.getText(), friMaterialFelt.getText(), friStandardFelt.getText(),
+                        belopI, belopB, byggeaar, kvm, bonus, 5);
+                lister.leggTilFridsboligForsikiring(fri);
+                refreshFritidsTable();
+            } catch (NumberFormatException ex) { melding("Gyldige tall kreves."); }
+        });
+        bind(viewFriBtn, this::refreshFritidsTable);
+        bind(saveFriBtn, () -> {
+            try { lister.skrivbilfil("lister.txt"); melding("Lagret!"); }
+            catch (Exception ex) { melding("Feil: " + ex.getMessage()); }
+        });
+        bindExit(exitFriBtn);
+        return main;
+    }
 
-                     BaatForsikring baat = new BaatForsikring(null, regNum, baatType, modell, lengde, årsmodell, motortype, motorstyrke, bonus, 4, 0.0);
-                     Kunde k = lister.finnKunder(kunderNr);
-                     if (k != null)
-                     {
-                         utskriftbaat.setText(k.toString() + " er registrert på \n" + baat.toString());
-                     }
-                     else
-                     {
-                         utskriftbaat.setText("Fant ikke kunde med nummer: " + kunderNr);
-                     }
-                 }
-                 catch (NumberFormatException ex)
-                 {
-                     melding("Vennligst skriv inn gyldige tall for numeriske felt.");
-                 }
-             }
-         });
+    // ── REISE ─────────────────────────────────────────────────────────────────
 
-         view1.addActionListener((ActionEvent e) ->
-         {
-             utskriftbaat.setText(lister.visbaat());
-         });
+    private void buildReiseTab() {
+        reiseModel = new DefaultTableModel(new String[]{"Kunde","Område","Sum","Dato"}, 0);
+        reiseTable = makeTable(reiseModel);
+        reiseTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() != 2) return;
+                int row = reiseTable.getSelectedRow();
+                if (row < 0) return;
+                String kunde  = reiseModel.getValueAt(row, 0).toString();
+                String omrade = reiseModel.getValueAt(row, 1).toString();
+                Reise r = null;
+                for (Reise x : lister.getReisesliste())
+                    if (kunde.equals(x.kunder) && omrade.equals(x.getOmråde())) { r = x; break; }
+                if (r == null) return;
+                final Reise fr = r;
+                JTextField fKunde  = new JTextField(fr.kunder); fKunde.setEditable(false);
+                JTextField fOmrade = new JTextField(fr.getOmråde());
+                JTextField fSum    = new JTextField(String.valueOf(fr.getSumf()));
+                openDetailDialog("Reiseforsikring – " + kunde,
+                    new String[]{"Kunde","Område","Sum"},
+                    new JTextField[]{fKunde, fOmrade, fSum},
+                    () -> {
+                        fr.setOmråde(fOmrade.getText());
+                        try { fr.setSumf(Integer.parseInt(fSum.getText())); } catch (NumberFormatException ignored) {}
+                        refreshReiseTable();
+                    },
+                    () -> { lister.getReisesliste().remove(fr); refreshReiseTable(); });
+            }
+        });
+    }
 
-         save1.addActionListener((ActionEvent e) ->
-         {
-             try
-             {
-                 lister.skrivbilfil("lister.txt");
-                 melding("Data lagret med suksess!");
-             }
-             catch (Exception ex)
-             {
-                 melding("Feil ved lagring av data: " + ex.getMessage());
-             }
-         });
+    private void refreshReiseTable() {
+        reiseModel.setRowCount(0);
+        for (Reise r : lister.getReisesliste())
+            reiseModel.addRow(new Object[]{r.kunder, r.getOmråde(), r.getSumf(), r.getDato()});
+    }
 
-         exit1.addActionListener((ActionEvent e) ->
-         {
-             System.exit(0);
-         });//luker vindu
-     }
-
-     private void ReiseForsikiringTable()
-     {
-         displayReiseForsikiringpPanel.setLayout(new BorderLayout());
-         displayReiseForsikiringpPanel.add(displayButton2, BorderLayout.SOUTH);
-         displayReiseForsikiringpPanel.add(displayContent2, BorderLayout.CENTER);
-         displayReiseForsikiringpPanel.add(displayTable2, BorderLayout.NORTH);
-
-         // Add input fields for Reise
-         displayContent2.add(new JLabel("Kunde Nummer"));
-         JTextField kundeNrReise = new JTextField();
-         displayContent2.add(kundeNrReise);
-
-         displayContent2.add(new JLabel("Område"));
-         JTextField områdeReise = new JTextField();
-         displayContent2.add(områdeReise);
-
-         displayContent2.add(new JLabel("Forsikringssum"));
-         JTextField summReise = new JTextField();
-         displayContent2.add(summReise);
-
-         displayContent2.add(new JLabel("Bonus (%)"));
-         JTextField bonusReise = new JTextField();
-         displayContent2.add(bonusReise);
-
-         JButton addNewReise = new JButton("Add New");
-         JButton viewReise = new JButton("View");
-         JButton saveReise = new JButton("Save");
-         JButton exitReise = new JButton("Exit");
-
-         displayButton2.add(addNewReise);
-         displayButton2.add(viewReise);
-         displayButton2.add(saveReise);
-         displayButton2.add(exitReise);
-
-         displayReiseForsikiringpPanel.add(outputReise, BorderLayout.EAST);
-
-         addNewReise.addActionListener(new ActionListener()
-         {
-             @Override
-             public void actionPerformed(ActionEvent e)
-             {
-                 if (kundeNrReise.getText().isEmpty() || områdeReise.getText().isEmpty() ||
-                     summReise.getText().isEmpty())
-                 {
-                     melding("Du må fylle inn alle påkrevde felt for reiseforsikring.");
-                     return;
-                 }
-                 try
-                 {
-                     String kundeNr = kundeNrReise.getText();
-                     String område = områdeReise.getText();
-                     int sum = Integer.parseInt(summReise.getText());
-                     double bonus = bonusReise.getText().isEmpty() ? 0.0 : Double.parseDouble(bonusReise.getText());
-
-                     Reise reise = new Reise(kundeNr, område, sum, 3, bonus);
-                     outputReise.setText(reise.toString());
-                 }
-                 catch (NumberFormatException ex)
-                 {
-                     melding("Vennligst skriv inn gyldige tall for numeriske felt.");
-                 }
-             }
-         });
-
-         viewReise.addActionListener((ActionEvent e) ->
-         {
-             outputReise.setText("Reiseforsikring oversikt kommer her.");
-         });
-
-         saveReise.addActionListener((ActionEvent e) ->
-         {
-             try
-             {
-                 lister.skrivbilfil("lister.txt");
-                 melding("Data lagret med suksess!");
-             }
-             catch (Exception ex)
-             {
-                 melding("Feil ved lagring av data: " + ex.getMessage());
-             }
-         });
-
-         exitReise.addActionListener((ActionEvent e) ->
-         {
-             System.exit(0);
-         });
-
-     }
-
-     private void HusinnBoForsikringTable()
-     {
-         displayHusogInnboForsikiringpPanel.setLayout(new BorderLayout());
-
-         //displayHusogInnboForsikiringpPanel.add(displayContent3 ,BorderLayout.EAST);
-         displayHusogInnboForsikiringpPanel.add(leggcont1opmeg3, BorderLayout.CENTER);
-         displayHusogInnboForsikiringpPanel.add(displayButton3, BorderLayout.SOUTH);
-         displayHusogInnboForsikiringpPanel.add(displayTable3, BorderLayout.EAST);
-
-         displayContent3.add(new JLabel("BoligenAdress"));
-         BoligenAdress.setText("Eksempel gate 1");
-         displayContent3.add(BoligenAdress);
-         displayContent3.add(new JLabel("BoligType"));
-         Boligtype.setText("Enebolig");
-         displayContent3.add(Boligtype);
-         displayContent3.add(new JLabel("ByggeMateriale"));
-         Byggematerial.setText("Tre");
-         displayContent3.add(Byggematerial);
-         displayContent3.add(new JLabel("Standard"));
-         standard.setText("Standard");
-         displayContent3.add(standard);
-         displayContent3.add(new JLabel("Byggeaar"));
-         Byggeaar.setText("1995");
-         displayContent3.add(Byggeaar);
-         displayContent3.add(new JLabel("AntallKvardratmeter"));
-         AntallKvardratmeter.setText("150");
-         displayContent3.add(AntallKvardratmeter);
-         displayContent3.add(new JLabel("BelopB"));
-         BelopB.setText("5000");
-         displayContent3.add(BelopB);
-         displayContent3.add(new JLabel("Bonus"));
-         Bounus.setText("0.0");
-         displayContent3.add(Bounus);
-
-         displayButton3.add(addNew2);
-         displayButton3.add(save2);
-         displayButton3.add(view2);
-         displayButton3.add(exit2);
-         leggcont1opmeg3.add(displayContent3, BorderLayout.WEST);
-         leggcont1opmeg3.add(outputhus, BorderLayout.CENTER);
-
-        //  displayButton3.add(addNew2);
-         //displayButton3.add(save2);
-         // displayButton3.add(view2);
-         //displayButton3.add(eixt2);
-
-         addNew2.addActionListener(new ActionListener()
-         {
-             @Override
-             public void actionPerformed(ActionEvent e)
-             {
-                 if (BoligenAdress.getText().isEmpty() || Boligtype.getText().isEmpty() ||
-                     Byggematerial.getText().isEmpty() || standard.getText().isEmpty() ||
-                     Byggeaar.getText().isEmpty() || AntallKvardratmeter.getText().isEmpty() ||
-                     BelopB.getText().isEmpty())
-                 {
-                     melding("Du må fylle inn all informasjon om hus og innbo for å registrere.");
-                     return;
-                 }
-                 try
-                 {
-                     int kunde = Integer.parseInt(KundeNrfeltb.getText().isEmpty() ? "0" : KundeNrfeltb.getText());
-                     String adresse = BoligenAdress.getText();
-                     String boligtype = Boligtype.getText();
-                     String byggemateriale = Byggematerial.getText();
-                     String std = standard.getText();
-                     int byggeaar = Integer.parseInt(Byggeaar.getText());
-                     int kvm = Integer.parseInt(AntallKvardratmeter.getText());
-                     int belopB = Integer.parseInt(BelopB.getText());
-                     int belopI = 0; // Default for contents
-
-                     Husoginnboforsikring hus = new Husoginnboforsikring(kunde, adresse, boligtype, null,
-                                                                         byggemateriale, kvm, belopB, belopI, byggeaar, std, 2);
-                     outputhus.setText(hus.toString());
-                 }
-                 catch (NumberFormatException ex)
-                 {
-                     melding("Vennligst skriv inn gyldige tall for numeriske felt.");
-                 }
-             }
-         });
-
-         view2.addActionListener((ActionEvent e) ->
-         {
-             outputhus.setText("Hus og innbo forsikring oversikt kommer her.");
-         });
-
-         save2.addActionListener((ActionEvent e) ->
-         {
-             try
-             {
-                 lister.skrivbilfil("lister.txt");
-                 melding("Data lagret med suksess!");
-             }
-             catch (Exception ex)
-             {
-                 melding("Feil ved lagring av data: " + ex.getMessage());
-             }
-         });
-
-         exit2.addActionListener((ActionEvent e) ->
-         {
-             System.exit(0);
-         });
-
-     }
-
-     private void fritidsForsikiringTable()
-     {
-         displayFriTidsForsikiringpPanel.setLayout(new BorderLayout());
-//        displayFriTidsForsikiringpPanel.add(displayButton4 ,BorderLayout.SOUTH);
-//        displayFriTidsForsikiringpPanel.add(displayContent4 ,BorderLayout.WEST);
-//        displayFriTidsForsikiringpPanel.add(displayTable4 , BorderLayout.NORTH);
-         displayFriTidsForsikiringpPanel.add(leggcont1opmeg4, BorderLayout.CENTER);
-         displayFriTidsForsikiringpPanel.add(displayButton4, BorderLayout.SOUTH);
-         displayFriTidsForsikiringpPanel.add(displayTable1, BorderLayout.EAST);
-
-         displayContent4.add(new JLabel("BoligenAdress"));
-         BoligenAdress1.setText("Hytte adresse 1");
-         displayContent4.add(BoligenAdress1);
-         displayContent4.add(new JLabel("BoligType"));
-         BoligType1.setText("Hytte");
-         displayContent4.add(BoligType1);
-         displayContent4.add(new JLabel("ByggeMateriale"));
-         Byggematerial1.setText("Tre");
-         displayContent4.add(Byggematerial1);
-         displayContent4.add(new JLabel("Standard"));
-         Standerd1.setText("Enkel");
-         displayContent4.add(Standerd1);
-         displayContent4.add(new JLabel("Byggeaar"));
-         Byggeaar1.setText("2000");
-         displayContent4.add(Byggeaar1);
-         displayContent4.add(new JLabel("AntallKvardratmeter"));
-         AntallKvadrataMeter1.setText("80");
-         displayContent4.add(AntallKvadrataMeter1);
-         displayContent4.add(new JLabel("BelopB"));
-         BelopB1.setText("3000");
-         displayContent4.add(BelopB1);
-         displayContent4.add(new JLabel("Bonus"));
-         Bounus1.setText("0.0");
-         displayContent4.add(Bounus1);
-
-         displayButton4.add(addNew3);
-         displayButton4.add(save3);
-         displayButton4.add(view3);
-         displayButton4.add(exit3);
-         leggcont1opmeg4.add(displayContent4, BorderLayout.WEST);
-         leggcont1opmeg4.add(outputfrihus, BorderLayout.CENTER);
-
-         addNew3.addActionListener(new ActionListener()
-         {
-             @Override
-             public void actionPerformed(ActionEvent e)
-             {
-                 if (BoligenAdress1.getText().isEmpty() || BoligType1.getText().isEmpty() ||
-                     Byggematerial1.getText().isEmpty() || Standerd1.getText().isEmpty() ||
-                     Byggeaar1.getText().isEmpty() || AntallKvadrataMeter1.getText().isEmpty() ||
-                     BelopB1.getText().isEmpty())
-                 {
-                     melding("Du må fylle inn all informasjon om fritidshus for å registrere.");
-                     return;
-                 }
-                 try
-                 {
-                     String adresse = BoligenAdress1.getText();
-                     String boligtype = BoligType1.getText();
-                     String byggemateriale = Byggematerial1.getText();
-                     String standard = Standerd1.getText();
-                     int byggeaar = Integer.parseInt(Byggeaar1.getText());
-                     int kvm = Integer.parseInt(AntallKvadrataMeter1.getText());
-                     int belopB = Integer.parseInt(BelopB1.getText());
-                     int belopI = Integer.parseInt(BelopB1.getText()); // Using same as building amount as default
-                     double bonus = Bounus1.getText().isEmpty() ? 0.0 : Double.parseDouble(Bounus1.getText());
-
-                     FritidsboligForsikiring fritids = new FritidsboligForsikiring(adresse, null, boligtype,
-                                                                                    byggemateriale, standard, belopI,
-                                                                                    belopB, byggeaar, kvm, bonus, 5);
-                     outputfrihus.setText(fritids.toString());
-                 }
-                 catch (NumberFormatException ex)
-                 {
-                     melding("Vennligst skriv inn gyldige tall for numeriske felt.");
-                 }
-             }
-         });
-
-         view3.addActionListener((ActionEvent e) ->
-         {
-             outputfrihus.setText("Fritidsforsikring oversikt kommer her.");
-         });
-
-         save3.addActionListener((ActionEvent e) ->
-         {
-             try
-             {
-                 lister.skrivbilfil("lister.txt");
-                 melding("Data lagret med suksess!");
-             }
-             catch (Exception ex)
-             {
-                 melding("Feil ved lagring av data: " + ex.getMessage());
-             }
-         });
-
-         exit3.addActionListener((ActionEvent e) ->
-         {
-             System.exit(0);
-         });
-     }
-
+    private JPanel buildReisePanel() {
+        JPanel form = formPanel(new Object[][]{
+            {"KundeNr", reiseKundeNrFelt}, {"Område", reiseOmradeFelt},
+            {"Sum",     reiseSumFelt},     {"Bonus",  reiseBonusFelt}
+        });
+        JPanel btns = new JPanel(new FlowLayout());
+        btns.add(addReiseBtn); btns.add(saveReiseBtn); btns.add(viewReiseBtn); btns.add(exitReiseBtn);
+        JPanel left = new JPanel(new BorderLayout());
+        left.setBorder(BorderFactory.createTitledBorder("Ny reiseforsikring"));
+        left.add(form, BorderLayout.CENTER); left.add(btns, BorderLayout.SOUTH);
+        left.setPreferredSize(new Dimension(280, 0));
+        JPanel main = new JPanel(new BorderLayout(8, 0));
+        main.add(left, BorderLayout.WEST);
+        main.add(scroll(reiseTable), BorderLayout.CENTER);
+        main.add(hintLabel(), BorderLayout.SOUTH);
+        main.setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
+        bind(addReiseBtn, () -> {
+            if (reiseKundeNrFelt.getText().isEmpty() || reiseOmradeFelt.getText().isEmpty() || reiseSumFelt.getText().isEmpty()) {
+                melding("Fyll inn alle felt."); return;
+            }
+            try {
+                int sum    = Integer.parseInt(reiseSumFelt.getText());
+                double bon = reiseBonusFelt.getText().isEmpty() ? 0.0 : Double.parseDouble(reiseBonusFelt.getText());
+                Reise r    = new Reise(reiseKundeNrFelt.getText(), reiseOmradeFelt.getText(), sum, 3, bon);
+                lister.leggTilRiese(r);
+                refreshReiseTable();
+            } catch (NumberFormatException ex) { melding("Gyldige tall kreves."); }
+        });
+        bind(viewReiseBtn, this::refreshReiseTable);
+        bind(saveReiseBtn, () -> {
+            try { lister.skrivbilfil("lister.txt"); melding("Lagret!"); }
+            catch (Exception ex) { melding("Feil: " + ex.getMessage()); }
+        });
+        bindExit(exitReiseBtn);
+        return main;
+    }
 }

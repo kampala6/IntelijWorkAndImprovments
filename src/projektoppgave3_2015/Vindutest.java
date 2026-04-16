@@ -25,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
@@ -44,12 +45,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AbstractDocument;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -926,6 +929,159 @@ public final class Vindutest extends JFrame {
     }
 
     /**
+     * Opens a modal window containing a read-only table for overview data.
+     *
+     * @param var1 dialog title
+     * @param var2 table instance to show
+     * @param var3 summary text shown above the table
+     */
+    private void openTableWindow(String var1, JTable var2, String var3) {
+        JDialog var4 = new JDialog(this, var1, true);
+        var4.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        JPanel var5 = new JPanel(new BorderLayout(0, 10));
+        var5.setBackground(APP_BACKGROUND_COLOR);
+        var5.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+        JLabel var6 = new JLabel(var3);
+        var6.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        var6.setForeground(new Color(95, 104, 118));
+        JScrollPane var7 = new JScrollPane(var2);
+        var7.getVerticalScrollBar().setUnitIncrement(16);
+        var7.setBorder(BorderFactory.createLineBorder(OUTPUT_BORDER_COLOR));
+        var5.add(var6, BorderLayout.NORTH);
+        var5.add(var7, BorderLayout.CENTER);
+        var4.setContentPane(var5);
+        var4.setSize(980, 480);
+        var4.setLocationRelativeTo(this);
+        var4.setVisible(true);
+    }
+
+    /**
+     * Creates a standard read-only table instance for the provided rows and columns.
+     *
+     * @param var1 column names
+     * @param var2 row values
+     * @return configured JTable
+     */
+    private JTable createReadOnlyTable(String[] var1, Object[][] var2) {
+        DefaultTableModel var3 = new DefaultTableModel(var2, var1) {
+            @Override
+            public boolean isCellEditable(int var1x, int var2x) {
+                return false;
+            }
+        };
+        JTable var4 = new JTable(var3);
+        var4.setAutoCreateRowSorter(true);
+        var4.setRowHeight(24);
+        var4.setFillsViewportHeight(true);
+        var4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        return var4;
+    }
+
+    /**
+     * Displays the car insurance overview in a dedicated table window.
+     */
+    private void visBilTabell() {
+        String[] var1 = new String[]{"Kundenummer", "Registreringsnummer", "Biltype", "Modell", "Årsmodell", "Motor", "Styrke", "Bonus", "Premie", "Alder"};
+        Object[][] var2 = new Object[this.lister.getBilForsikringsLIste().size()][var1.length];
+        int var3 = 0;
+
+        for(Bilforsikring var5 : this.lister.getBilForsikringsLIste()) {
+            var2[var3++] = new Object[]{var5.getKunder(), var5.getRegistreringsnummer(), var5.getBiltype(), var5.getModell(), var5.getÅrsmodell(), var5.getMotortype(), var5.getMotorstyrke(), var5.getBonus(), this.formatCurrency(var5.premie()), var5.age()};
+        }
+
+        this.openTableWindow("Biler", this.createReadOnlyTable(var1, var2), "Oversikt over registrerte bilforsikringer.");
+    }
+
+    /**
+     * Displays the house insurance overview in a dedicated table window.
+     */
+    private void visHusTabell() {
+        String[] var1 = new String[]{"Kundenummer", "Adresse", "Boligtype", "Materiale", "m2", "Byggeår", "Standard", "Belop bygg", "Belop innbo", "Premie", "Alder"};
+        Object[][] var2 = new Object[this.lister.getHusoginnboforsikrings().size()][var1.length];
+        int var3 = 0;
+
+        for(Husoginnboforsikring var5 : this.lister.getHusoginnboforsikrings()) {
+            var2[var3++] = new Object[]{var5.getKunde(), var5.getBoligensAdresse(), var5.getBoligtype(), var5.getByggemateriale(), var5.getAntallKvadratmeter(), var5.getByggeaar(), var5.getStandard(), var5.getBelopB(), var5.getBelopI(), this.formatCurrency(var5.premie()), var5.age()};
+        }
+
+        this.openTableWindow("Hus/innbo", this.createReadOnlyTable(var1, var2), "Oversikt over registrerte hus- og innboforsikringer.");
+    }
+
+    /**
+     * Displays the travel insurance overview in a dedicated table window.
+     */
+    private void visReiseTabell() {
+        String[] var1 = new String[]{"Kundenummer", "Område", "Sum", "Dato", "Premie", "Alder"};
+        Object[][] var2 = new Object[this.lister.getReisesliste().size()][var1.length];
+        int var3 = 0;
+
+        for(Reise var5 : this.lister.getReisesliste()) {
+            var2[var3++] = new Object[]{var5.kunder, var5.getOmråde(), var5.getSumf(), var5.getDato(), this.formatCurrency(var5.premie()), var5.age()};
+        }
+
+        this.openTableWindow("Reiser", this.createReadOnlyTable(var1, var2), "Oversikt over registrerte reiseforsikringer.");
+    }
+
+    /**
+     * Displays the leisure property insurance overview in a dedicated table window.
+     */
+    private void visFriTabell() {
+        String[] var1 = new String[]{"Adresse", "Boligtype", "Materiale", "m2", "Byggeår", "Standard", "Belop bygg", "Belop innbo", "Premie", "Alder"};
+        Object[][] var2 = new Object[this.lister.getFritidsboligForsikirings().size()][var1.length];
+        int var3 = 0;
+
+        for(FritidsboligForsikiring var5 : this.lister.getFritidsboligForsikirings()) {
+            var2[var3++] = new Object[]{var5.getBoligensAdresse(), var5.getBoligtype(), var5.getByggemateriale(), var5.getAntallKvadratmeter(), var5.getByggeaar(), var5.getStandard(), var5.getBelopB(), var5.getBelopI(), this.formatCurrency(var5.premie()), var5.age()};
+        }
+
+        this.openTableWindow("Fritidsbolig", this.createReadOnlyTable(var1, var2), "Oversikt over registrerte fritidsboligforsikringer.");
+    }
+
+    /**
+     * Displays the claim overview in a dedicated table window.
+     */
+    private void visSkadeTabell() {
+        this.refreshSkadeCountBadge();
+        String[] var1 = new String[]{"Skadenummer", "Kundenummer", "Dato", "Skadeobjekt", "Skadetype", "Taksering", "Utbetalt", "Referanse"};
+        Object[][] var2 = new Object[this.lister.getSkadeMeldinger().size()][var1.length];
+        int var3 = 0;
+
+        for(SkadeMelding var5 : this.lister.getSkadeMeldinger()) {
+            var2[var3++] = new Object[]{var5.getSkadeNummer(), var5.getKundeNr(), var5.getDato(), var5.getSkadeObjectType(), var5.getTypeSkade(), this.formatCurrency(var5.getTakseringBeløp()), this.formatCurrency(var5.getUtbetaltErstatningsBeløp()), this.pickReference(var5)};
+        }
+
+        this.openTableWindow("Skademeldinger", this.createReadOnlyTable(var1, var2), "Oversikt over registrerte skademeldinger.");
+    }
+
+    /**
+     * Formats a numeric amount as localized currency text.
+     *
+     * @param var1 amount to format
+     * @return formatted currency string
+     */
+    private String formatCurrency(double var1) {
+        return NumberFormat.getCurrencyInstance().format(var1);
+    }
+
+    /**
+     * Returns the most relevant linked reference for a claim row.
+     *
+     * @param var1 claim instance
+     * @return first available linked reference, otherwise "-"
+     */
+    private String pickReference(SkadeMelding var1) {
+        if (var1.getKobletBilRegistreringsnummer() != null && !var1.getKobletBilRegistreringsnummer().trim().isEmpty()) {
+            return var1.getKobletBilRegistreringsnummer();
+        } else if (var1.getKobletBaatRegistreringsnummer() != null && !var1.getKobletBaatRegistreringsnummer().trim().isEmpty()) {
+            return var1.getKobletBaatRegistreringsnummer();
+        } else if (var1.getKobletHusAdresse() != null && !var1.getKobletHusAdresse().trim().isEmpty()) {
+            return var1.getKobletHusAdresse();
+        } else {
+            return "-";
+        }
+    }
+
+    /**
      * Connects all UI controls to their corresponding handlers.
      */
     private void wireEvents() {
@@ -939,16 +1095,16 @@ public final class Vindutest extends JFrame {
         this.finnKundeBtn.addActionListener(this.action(this::finnKunde));
         this.slettKundeBtn.addActionListener(this.action(this::slettKunde));
         this.leggTilBilBtn.addActionListener(this.action(this::leggTilBil));
-        this.visBilBtn.addActionListener(this.action(() -> this.utskrift.setText(this.formatForsikringListeMedAlder("Biler", this.lister.getBilForsikringsLIste()))));
+        this.visBilBtn.addActionListener(this.action(this::visBilTabell));
         this.leggTilHusBtn.addActionListener(this.action(this::leggTilHus));
-        this.visHusBtn.addActionListener(this.action(() -> this.utskrift.setText(this.formatForsikringListeMedAlder("Hus/innbo", this.lister.getHusoginnboforsikrings()))));
+        this.visHusBtn.addActionListener(this.action(this::visHusTabell));
         this.leggTilReiseBtn.addActionListener(this.action(this::leggTilReise));
-        this.visReiseBtn.addActionListener(this.action(() -> this.utskrift.setText(this.formatForsikringListeMedAlder("Reiser", this.lister.getReisesliste()))));
+        this.visReiseBtn.addActionListener(this.action(this::visReiseTabell));
         this.leggTilFriBtn.addActionListener(this.action(this::leggTilFritidsbolig));
-        this.visFriBtn.addActionListener(this.action(() -> this.utskrift.setText(this.formatForsikringListeMedAlder("Fritidsbolig", this.lister.getFritidsboligForsikirings()))));
+        this.visFriBtn.addActionListener(this.action(this::visFriTabell));
         this.leggTilSkadeBtn.addActionListener(this.action(this::leggTilSkadeMelding));
-        this.visSkadeBtn.addActionListener(this.action(this::visSkadeMeldinger));
-        this.hurtigVisSkadeBtn.addActionListener(this.action(this::visSkadeMeldinger));
+        this.visSkadeBtn.addActionListener(this.action(this::visSkadeTabell));
+        this.hurtigVisSkadeBtn.addActionListener(this.action(this::visSkadeTabell));
         this.skadeKoblingTypeCombo.addActionListener(this.action(this::updateSkadeReferansePlaceholder));
         this.lagreBtn.addActionListener(this.action(this::lagre));
         this.lastBtn.addActionListener(this.action(this::laste));
