@@ -3,8 +3,8 @@
 *.iml
 .idea_modules/
 
-# NetBeans local settings
-nbproject/private/
+# NetBeans
+nbproject/
 
 # Build output
 out/
@@ -23,6 +23,9 @@ target/
 *.tmp
 *.swp
 *.swo
+
+# Local environment variables
+.env.local
 
 # macOS
 .DS_Store
