@@ -6,6 +6,7 @@
 package no.insurance.service;
 
 import no.insurance.model.*;
+import no.insurance.db.*;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
