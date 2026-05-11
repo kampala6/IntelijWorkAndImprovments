@@ -4,7 +4,6 @@
 //
 
 package no.insurance.service;
-
 import no.insurance.model.*;
 import no.insurance.db.*;
 
