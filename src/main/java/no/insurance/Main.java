@@ -11,7 +11,7 @@ public class Main {
     /**
      * Creates the compatibility launcher class.
      */
-    public mainKlasse() {
+    public Main() {
     }
 
     /**
