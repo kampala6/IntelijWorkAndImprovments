@@ -148,6 +148,7 @@ public final class Vindutest extends JFrame {
     private final JButton visSkadeBtn = new JButton("Vis skademeldinger");
     private final JButton hurtigVisSkadeBtn = new JButton("Skademeldinger");
     private final JLabel skadeCountLabel = new JLabel("Skader: 0");
+    private final JLabel dbStatusLabel = new JLabel("DB: kobler til...");
     private final JButton lagreBtn = new JButton("Lagre");
     private final JButton lastBtn = new JButton("Last");
     private final JButton visLagretBtn = new JButton("Vis lagrede filer");
@@ -201,6 +202,7 @@ public final class Vindutest extends JFrame {
         this.wireEvents();
         this.loadPersistedDataOnStartup();
         this.refreshSkadeCountBadge();
+        this.refreshDatabaseStatusAsync();
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.pack();
         this.setMinimumSize(new Dimension(1240, 860));
@@ -466,13 +468,26 @@ public final class Vindutest extends JFrame {
      * @return the configured badge component
      */
     private JComponent createHeaderBadge() {
+        JPanel var1 = new JPanel();
+        var1.setOpaque(false);
+        var1.setLayout(new BoxLayout(var1, BoxLayout.Y_AXIS));
         JLabel var2 = new JLabel("Dashboard");
         var2.setOpaque(true);
         var2.setBackground(new Color(232, 240, 255));
         var2.setForeground(BUTTON_PRIMARY_COLOR.darker());
         var2.setFont(new Font("SansSerif", Font.BOLD, 12));
         var2.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
-        return var2;
+        this.dbStatusLabel.setOpaque(true);
+        this.dbStatusLabel.setBackground(new Color(241, 244, 248));
+        this.dbStatusLabel.setForeground(new Color(75, 85, 99));
+        this.dbStatusLabel.setFont(new Font("SansSerif", Font.BOLD, 11));
+        this.dbStatusLabel.setBorder(BorderFactory.createEmptyBorder(6, 12, 6, 12));
+        this.dbStatusLabel.setAlignmentX(0.0F);
+        var2.setAlignmentX(0.0F);
+        var1.add(var2);
+        var1.add(Box.createVerticalStrut(6));
+        var1.add(this.dbStatusLabel);
+        return var1;
     }
 
     /**
@@ -1235,6 +1250,7 @@ public final class Vindutest extends JFrame {
                 try {
                     this.get();
                     Vindutest.this.utskrift.setText("Lagret.");
+                    Vindutest.this.refreshDatabaseStatusAsync();
                 } catch (InterruptedException var2) {
                     Thread.currentThread().interrupt();
                     Vindutest.this.melding("Lagringen ble avbrutt");
@@ -1274,6 +1290,7 @@ public final class Vindutest extends JFrame {
                     Vindutest.this.copyLister(var1);
                     Vindutest.this.refreshSkadeCountBadge();
                     Vindutest.this.utskrift.setText("Data lastet.");
+                    Vindutest.this.refreshDatabaseStatusAsync();
                 } catch (InterruptedException var3) {
                     Thread.currentThread().interrupt();
                     Vindutest.this.melding("Lastingen ble avbrutt");
@@ -1862,6 +1879,46 @@ public final class Vindutest extends JFrame {
      */
     private void refreshSkadeCountBadge() {
         this.skadeCountLabel.setText("Skader: " + this.lister.getSkadeMeldinger().size());
+    }
+
+    /**
+     * Refreshes the database status badge without blocking the UI thread.
+     */
+    private void refreshDatabaseStatusAsync() {
+        this.dbStatusLabel.setText("DB: sjekker...");
+        this.dbStatusLabel.setBackground(new Color(241, 244, 248));
+        this.dbStatusLabel.setForeground(new Color(75, 85, 99));
+        (new SwingWorker<Boolean, Void>() {
+            protected Boolean doInBackground() {
+                return SupabaseDatabase.testConnection();
+            }
+
+            protected void done() {
+                boolean var1 = false;
+                try {
+                    var1 = this.get();
+                } catch (InterruptedException var3) {
+                    Thread.currentThread().interrupt();
+                } catch (java.util.concurrent.ExecutionException var4) {
+                }
+
+                if (var1) {
+                    Vindutest.this.dbStatusLabel.setText("DB: tilkoblet");
+                    Vindutest.this.dbStatusLabel.setBackground(new Color(226, 243, 230));
+                    Vindutest.this.dbStatusLabel.setForeground(new Color(30, 110, 54));
+                    Vindutest.this.dbStatusLabel.setToolTipText(SupabaseDatabase.getLastConnectionDiagnostic());
+                } else {
+                    Vindutest.this.dbStatusLabel.setText("DB: frakoblet");
+                    Vindutest.this.dbStatusLabel.setBackground(new Color(253, 234, 234));
+                    Vindutest.this.dbStatusLabel.setForeground(new Color(144, 38, 38));
+                    String var2 = SupabaseDatabase.getLastConnectionDiagnostic();
+                    Vindutest.this.dbStatusLabel.setToolTipText(var2);
+                    if (var2 != null && !var2.isEmpty()) {
+                        Vindutest.this.utskrift.setText("Database status: frakoblet\n" + var2);
+                    }
+                }
+            }
+        }).execute();
     }
 
     /**

@@ -14,6 +14,8 @@ public final class Runtime extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private final Lister lister = new Lister();
+    private final SnapshotFormatter snapshotFormatter = new SnapshotFormatter();
+    private final PersistenceService persistenceService = new PersistenceService("lister.txt", "lister.ser");
 
     private final JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -387,7 +389,7 @@ public final class Runtime extends JFrame {
         });
         bind(viewBilBtn, this::refreshBilTable);
         bind(saveBilBtn, () -> {
-            try { lister.skrivbilfil("lister.txt"); melding("Lagret!"); }
+            try { persistToDatabase(); melding("Lagret til database!"); }
             catch (Exception ex) { melding("Feil: " + ex.getMessage()); }
         });
         bindExit(exitBilBtn);
@@ -478,7 +480,7 @@ public final class Runtime extends JFrame {
         });
         bind(viewBaatBtn, this::refreshBaatTable);
         bind(saveBaatBtn, () -> {
-            try { lister.skrivbilfil("lister.txt"); melding("Lagret!"); }
+            try { persistToDatabase(); melding("Lagret til database!"); }
             catch (Exception ex) { melding("Feil: " + ex.getMessage()); }
         });
         bindExit(exitBaatBtn);
@@ -568,7 +570,7 @@ public final class Runtime extends JFrame {
         });
         bind(viewHusBtn, this::refreshHusTable);
         bind(saveHusBtn, () -> {
-            try { lister.skrivbilfil("lister.txt"); melding("Lagret!"); }
+            try { persistToDatabase(); melding("Lagret til database!"); }
             catch (Exception ex) { melding("Feil: " + ex.getMessage()); }
         });
         bindExit(exitHusBtn);
@@ -659,7 +661,7 @@ public final class Runtime extends JFrame {
         });
         bind(viewFriBtn, this::refreshFritidsTable);
         bind(saveFriBtn, () -> {
-            try { lister.skrivbilfil("lister.txt"); melding("Lagret!"); }
+            try { persistToDatabase(); melding("Lagret til database!"); }
             catch (Exception ex) { melding("Feil: " + ex.getMessage()); }
         });
         bindExit(exitFriBtn);
@@ -735,10 +737,14 @@ public final class Runtime extends JFrame {
         });
         bind(viewReiseBtn, this::refreshReiseTable);
         bind(saveReiseBtn, () -> {
-            try { lister.skrivbilfil("lister.txt"); melding("Lagret!"); }
+            try { persistToDatabase(); melding("Lagret til database!"); }
             catch (Exception ex) { melding("Feil: " + ex.getMessage()); }
         });
         bindExit(exitReiseBtn);
         return main;
+    }
+
+    private void persistToDatabase() throws Exception {
+        persistenceService.save(lister, snapshotFormatter.buildListerTextSnapshot(lister));
     }
 }

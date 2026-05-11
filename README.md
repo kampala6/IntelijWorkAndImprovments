@@ -285,6 +285,12 @@ A: ✅ No! Zero critical errors.
 ### Need Help Navigating?
 → Read `DOCUMENTATION_INDEX.md`
 
+### Need Supabase Database Setup?
+→ Read `SUPABASE_SETUP.md`
+
+### Need Supabase Tables/Schema Creation?
+→ Read `SUPABASE_SCHEMA.md`
+
 ---
 
 ## 🎯 DEPLOYMENT CHECKLIST
