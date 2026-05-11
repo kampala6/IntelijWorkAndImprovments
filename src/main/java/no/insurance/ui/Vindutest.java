@@ -63,7 +63,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
-import projektoppgave3_2015.Bilforsikring.BilType;
+import no.insurance.model.Bilforsikring.BilType;
 
 /**
  * The Vindutest class serves as the primary graphical user interface for managing customers, vehicles,
