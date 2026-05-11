@@ -13,6 +13,10 @@ dist/
 target/
 *.class
 
+# Old source layout (replaced by src/main/java and src/test/java)
+src/GUI/
+src/projektoppgave3_2015/
+
 # Local runtime/persistence files
 /lister.txt
 /lister.ser
